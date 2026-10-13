@@ -19,4 +19,6 @@ Parts of software development and writing involved AI assistance. See each track
 
 ## Submission package status
 
-Repository overview added. Track-specific source code, methods workbooks, and reproduction scripts are being selected and audited separately; **their presence is not implied by this README**.
+Core research Python modules, preliminary tests, track-specific overview files and dependency requirements have been uploaded. The full original methods workbooks, reference resources, complete BioGraph source and end-to-end reproduction bundle are **not yet uploaded**. This is a partial research-code release, not yet a verified end-to-end reproduction package.
+
+For local tests, create a Python 3.12 virtual environment, install `requirements.txt`, and run `python -m pytest tests/test_core.py tests/test_inheritance.py tests/test_acmg_preview.py`. Full application startup will require further source modules and external resources.
