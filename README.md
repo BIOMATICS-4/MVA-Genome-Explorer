@@ -1,4 +1,26 @@
-# MVA Genome Explorer — MVA Rare Disease Hackathon
+# MVA Genome Explorer — Hackathon submissions
+
+## Explore the submissions
+
+| Track | Methods | Results |
+|---|---|---|
+| **Track 1 — Variant prioritisation** | [Methods workbook](submissions/track1/methods/UscBen45_Track1_Methods_Description.xlsx) | [Results and availability](submissions/track1/results/) |
+| **Track 2 — Mechanism-informed drug repurposing** | [Methods workbook](submissions/track2/methods/UscBen45_Track2_Methods_Description.xlsx) | [Results and availability](submissions/track2/results/) |
+
+## BioGraph — visual exploration
+
+[![BUB1B disease network](assets/biograph/bub1b-semantic-disease-network.png)](assets/biograph/README.md)
+
+[**See all three BioGraph screenshots (Classic pathways, Semantic diseases, and BUB3 GO terms) →**](assets/biograph/README.md)
+
+## Reproducibility and data sharing
+
+[Installation status](INSTALLATION.md) · [Data availability and restrictions](DATA_AVAILABILITY.md)
+
+The repository currently contains a partial software release, not a validated one-command installation. No open-source license is granted. Do not distribute patient-level genomic files without appropriate authorization.
+
+---
+
 
 Research software and methods supporting two complementary submissions:
 
@@ -17,7 +39,7 @@ Only task-relevant, reviewed code, methods, configuration and tests should be co
 
 Parts of software development and writing involved AI assistance. See each track's methods disclosure for provider, plan/tier and applicable data-handling settings.
 
-## Submission package status
+## Source-code release status
 
 Core research Python modules, preliminary tests, track-specific overview files and dependency requirements have been uploaded. The full original methods workbooks, reference resources, complete BioGraph source and end-to-end reproduction bundle are **not yet uploaded**. This is a partial research-code release, not yet a verified end-to-end reproduction package.
 
