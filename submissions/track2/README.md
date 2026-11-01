@@ -13,3 +13,20 @@
 **Limitations:** Variant phase, missense mechanism, off-target effects, cytotoxicity, pharmacological rescue and clinical efficacy are unresolved. Candidate selection is hypothesis-generating.
 
 **Reproduction status:** Structural workflow files, complete reproducible source and the methods workbook still need independent file-level audit and upload. No patient data are included.
+
+## Final nominated research hypotheses (Model 6 v1.2)
+
+The four selected candidates in the final Track 2 presentation were:
+
+| Candidate | Research hypothesis | Evidence boundary |
+|---|---|---|
+| **Niacin** | Potential NAD⁺–SIRT2–BUBR1 abundance support | Indirect mechanism; the exact patient genotype has not been rescued |
+| **4-phenylbutyrate (4-PBA)** | Conditional folding/proteostasis or residual-protein stability hypothesis | Evidence from other genetic diseases is not BUBR1-specific rescue |
+| **Gentamicin** | Premature-stop readthrough research hypothesis | Exact stop context, tolerability and activity remain untested |
+| **Amlexanox** | Readthrough and NMD-related exploratory hypothesis | Off-target action, feasibility and rescue are unproven |
+
+**NMN was included only as a mechanistic comparator**, not an additional nominated candidate. These are literature- and mechanism-driven research hypotheses, not established therapies or validated efficacy for the proband.
+
+### Original scoping-review source
+
+The [exact PubMed query](../../docs/research/PUBMED_EXACT_SEARCH_2026-10-14.md) covers **niacin, NMN and 4-PBA only**; it was not a search covering gentamicin or amlexanox. The [87-entry cumulative evidence register](../../docs/research/SCOPING_REVIEW_PENDING_COMPLETION.md) is a preliminary review pending completion and full-text verification. The original XLSX content is not yet present in this public repository.
