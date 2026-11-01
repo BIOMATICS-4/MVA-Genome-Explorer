@@ -1,5 +1,5 @@
 PRELIMINARY RESEARCH EVIDENCE MAP — PENDING COMPLETION
-This is a searchable plain-text extraction of the 12-tab workbook G1_Continuous_Review_193_87_Studies_Audited.xlsx, NOT the lossless XLSX binary. Some tabular cell formats and formulas may not be preserved. The workbook reports 87 preliminary study entries from a 193-record worklist; these are not 87 fully verified full-text studies. No claim of MVA therapeutic efficacy. Original spreadsheet can be obtained from the owner and is still pending binary upload to this repository.
+This is a searchable plain-text extraction of the 12-tab workbook G1_Continuous_Review_193_87_Studies_Audited.xlsx, NOT the lossless XLSX binary. Some tabular cell formats and formulas may not be preserved. The workbook reports 87 preliminary study entries from a 193-record worklist; these are not 87 fully verified full-text studies. No claim of MVA therapeutic efficacy. An Excel-format reconstruction of the 12-sheet workbook is now uploaded in the 'Research into scoping review' GitHub directory. The separately retained source workbook may differ in formatting.
 
 <PARSED TEXT FOR SHEET: 1 / 12 TABS
 TAB NAME: Overview>index,G1 genetic-disease candidate review: cumulative evidence register,2026-10-15
