@@ -105,6 +105,9 @@ app.include_router(annotation_router(ROOT))
 from .compatibility_view import compatibility_router
 app.include_router(compatibility_router(ROOT))
 
+from .model6_active_view import model6_active_router
+app.include_router(model6_active_router(ROOT))
+
 from .biograph_view import biograph_router
 app.include_router(biograph_router())
 
