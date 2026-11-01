@@ -1,0 +1,11 @@
+proband_id,chrom_1,pos_1,ref_1,alt_1,chrom_2,pos_2,ref_2,alt_2,epcr,finding_type,notes
+PROBAND01,chr15,40209701,T,G,chr15,40220612,T,G,1.0,primary,BUB1B: stop-gained/missense pair; phase unresolved; QC_STRONG.
+PROBAND01,chr6,29672639,G,C,chr6,29673078,C,G,0.9,secondary,ZFP57: missense pair; phase unresolved; QC supported.
+PROBAND01,chr11,17114407,C,A,chr11,17079417,A,T,0.8,secondary,PIK3C2A: two variants; phase unresolved; QC supported.
+PROBAND01,chr16,2118216,C,T,,,,,0.7,secondary,PKD1: missense variant; QC supported.
+PROBAND01,chr21,26844283,GTCCTCGCCCTCAGT,G,,,,,0.6,secondary,ADAMTS1: frameshift variant; QC supported.
+PROBAND01,chr2,218675454,A,G,,,,,0.5,secondary,STK36: missense variant; QC supported.
+PROBAND01,chr2,178565250,G,A,,,,,0.4,secondary,TTN: missense variant; QC supported.
+PROBAND01,chr18,23763431,A,C,,,,,0.3,secondary,LAMA3: missense variant; population frequency unmeasured.
+PROBAND01,chr7,30971988,G,A,,,,,0.2,secondary,GHRHR: missense variant; QC supported.
+PROBAND01,chr19,56814010,CTCCCTCTGGCTCTTCAGCTTT,C,,,,,0.1,secondary,PEG3: in-frame deletion; QC supported.
