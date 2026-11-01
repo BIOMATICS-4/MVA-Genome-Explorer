@@ -25,3 +25,7 @@ These tests have not yet been confirmed to pass from a clean clone, and may depe
 The original local application used `bash install.sh` followed by `bash start.sh` with MVA Explorer usually at http://127.0.0.1:8010. Those commands are **not yet supported by this partial GitHub package**.
 
 Do not publicly distribute patient VCFs or restricted reference databases.
+
+## Updated public-code snapshot (1 November 2026)
+
+The `mva_explorer/` folder now contains the locally installed Model 6 v1.2 backend route modules, evidence/sex-aware/mechanism-ranking modules, versioned API adapters and current `index.html` browser UI. The original local targeted checks passed **43 tests** (1 warning). The public repository still does **not** include restricted patient inputs, frozen model input/output matrices, complete BioGraph service or every runtime reference dependency. Successful local tests are not proof of a clean end-to-end reproduction from the public checkout alone. See [Model 6 release reconciliation](docs/MODEL6_V1_2_RECONCILIATION.md).
