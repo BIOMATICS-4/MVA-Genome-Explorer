@@ -34,6 +34,61 @@ def genotype_type(gt, alt_index):
         return 'homozygous_alt' if len(gt) == 2 else 'all_alt_polyploid'
     return 'heterozygous'
 
+# Reference lengths provide build evidence without assuming that a file can
+# be safely annotated against the matching FASTA.
+_BUILD_LENGTHS = {
+    'GRCh37': {'1': 249250621, '2': 243199373, '3': 198022430, '4': 191154276,
+        '5': 180915260, '6': 171115067, '7': 159138663, '8': 146364022,
+        '9': 141213431, '10': 135534747, '11': 135006516, '12': 133851895,
+        '13': 115169878, '14': 107349540, '15': 102531392, '16': 90354753,
+        '17': 81195210, '18': 78077248, '19': 59128983, '20': 63025520,
+        '21': 48129895, '22': 51304566, 'X': 155270560, 'Y': 59373566},
+    'GRCh38': {'1': 248956422, '2': 242193529, '3': 198295559, '4': 190214555,
+        '5': 181538259, '6': 170805979, '7': 159345973, '8': 145138636,
+        '9': 138394717, '10': 133797422, '11': 135086622, '12': 133275309,
+        '13': 114364328, '14': 107043718, '15': 101991189, '16': 90338345,
+        '17': 83257441, '18': 80373285, '19': 58617616, '20': 64444167,
+        '21': 46709983, '22': 50818468, 'X': 156040895, 'Y': 57227415}
+}
+
+def detect_genome_build(header):
+    """Conservative QC-only assembly inference; never authorizes annotation."""
+    import re
+    references = [str(record) for record in header.records if record.key == 'reference']
+    hint_text = ' '.join(references)
+    hints = set()
+    if re.search(r'(?i)grch37|hg19', hint_text): hints.add('GRCh37')
+    if re.search(r'(?i)grch38|hg38', hint_text): hints.add('GRCh38')
+    observed = {}
+    for name, contig in header.contigs.items():
+        key = name[3:] if name.startswith('chr') else name
+        if key in _BUILD_LENGTHS['GRCh37'] and contig.length is not None:
+            observed[key] = contig.length
+    matches = {b: sum(observed[k] == length for k, length in table.items() if k in observed)
+               for b, table in _BUILD_LENGTHS.items()}
+    conflicts = {b: sum(observed[k] != length for k, length in table.items() if k in observed)
+                 for b, table in _BUILD_LENGTHS.items()}
+    basis = {'reference_headers': references, 'informative_contigs': len(observed),
+             'matching_contig_lengths': matches, 'conflicting_contig_lengths': conflicts}
+    plausible = [b for b in _BUILD_LENGTHS if matches[b] >= 4 and conflicts[b] == 0]
+    if len(hints) > 1:
+        basis['method'] = 'CONFLICTING_REFERENCE_HEADERS'
+        return 'UNVERIFIED', basis
+    if len(plausible) == 1:
+        b = plausible[0]
+        if hints and b not in hints:
+            basis['method'] = 'REFERENCE_CONTIG_CONFLICT'
+            return 'UNVERIFIED', basis
+        basis['method'] = 'REFERENCE_AND_CONTIG_LENGTHS' if hints else 'CONTIG_LENGTHS'
+        return b, basis
+    if len(hints) == 1:
+        b = next(iter(hints))
+        if conflicts[b] == 0:
+            basis['method'] = 'REFERENCE_HEADER_ONLY' if not observed else 'REFERENCE_WITH_PARTIAL_CONTIG_LENGTHS'
+            return b, basis
+    basis['method'] = 'INSUFFICIENT_OR_CONFLICTING_EVIDENCE'
+    return 'UNVERIFIED', basis
+
 def qc(vcf_path, out_dir, sample=None):
     import pysam
     vcf_path, out_dir = Path(vcf_path), Path(out_dir)
@@ -67,6 +122,7 @@ def qc(vcf_path, out_dir, sample=None):
     digest = sha256(vcf_path)
     vf = pysam.VariantFile(str(vcf_path))
     samples = list(vf.header.samples)
+    build, build_basis = detect_genome_build(vf.header)
     if sample is None:
         if len(samples) != 1:
             raise ValueError('Choose a sample explicitly for a multisample/site-only VCF.')
@@ -74,6 +130,7 @@ def qc(vcf_path, out_dir, sample=None):
     if sample not in samples:
         raise ValueError('Sample not found in VCF.')
     manifest.update(input_sha256=digest, sample=sample, samples=samples,
+                    genome_build=build, genome_build_basis=build_basis,
                     status='QC_RUNNING',
                     progress={'stage':'Scanning variants', 'percent':0.0,
                               'records_scanned':0, 'carried_alleles':0})
