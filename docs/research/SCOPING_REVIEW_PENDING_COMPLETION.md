@@ -23,3 +23,7 @@
 5. Independently verify screening/extraction, complete final flow/counts, and explicitly report limitations.
 
 No study in the register is direct evidence that any candidate restores BUBR1 activity in this individual's cells. The exact PubMed search is in [PUBMED_EXACT_SEARCH_2026-10-14.md](PUBMED_EXACT_SEARCH_2026-10-14.md). The workbook itself must be added to this public repository **only after its exact bytes are transferred and its contents checked for privacy and redistribution restrictions**; this documentation does not assert that the XLSX has already been uploaded.
+
+## Public searchable text mirror
+
+The 12-tab worksheet content is now searchable in a [plain-text evidence mirror](G1_CONTINUOUS_REVIEW_87_STUDIES_TEXT_MIRROR_PENDING.txt), preserving the reported preliminary entries and their eligibility/verification caveats. This **is not** a lossless Excel export: spreadsheet formatting, formulas and layout are not guaranteed in the text representation. The original `.xlsx` file is separately preserved for delivery and still awaits a binary upload to GitHub after independent verification.
