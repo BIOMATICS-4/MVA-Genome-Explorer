@@ -30,6 +30,28 @@ The later Track 1 methods report matches the saved model-ranking order; an earli
 
 *ACMG/AMP review distinguishes the AR pair from the earlier single-variant scoring context.*
 
+### Model 6 v1.2 — saved ranking evidence
+
+The ten saved candidates below share the same predicted **coding/essential-splice effect-priority class**. Within this class, **gene–phenotype similarity (P)** is the first distinguishing ranking criterion, so these particular P values descend with saved gene rank. The full ordering also considers QC-review status, established gene–disease evidence, and variant evidence where needed; **P is not an overall probability of causality**.
+
+| Saved rank | Gene | Gene–phenotype similarity (P) | Recorded GenCC validity |
+|---:|---|---:|---|
+| 1 | **BUB1B** | **0.7657** | Definitive; Strong |
+| 2 | ZFP57 | 0.6721 | Definitive; Moderate; Strong |
+| 3 | PIK3C2A | 0.6648 | Strong; Supportive |
+| 4 | PKD1 | 0.6494 | Definitive; Strong; Supportive |
+| 5 | ADAMTS1 | 0.6346 | Limited |
+| 6 | STK36 | 0.6176 | Supportive |
+| 7 | TTN | 0.5847 | Moderate; Strong; Supportive |
+| 8 | LAMA3 | 0.5766 | Not recorded in this result |
+| 9 | GHRHR | 0.5741 | Not recorded in this result |
+| 10 | PEG3 | 0.5695 | Not recorded in this result |
+
+*Source: frozen 18 October 2026 Model 6 v1.2 candidate-ranking snapshot. The GenCC column reflects recorded categorical gene–disease validity annotations (potentially spanning diseases), **not a numerical gene–disease score or proof of an MVA association**. The logistic combined hypothesis scores are a distinct quantity.*
+
+**Provenance:** This table documents existing ranking inputs and saved order; no genes, weights, scores, or submitted rows were changed to generate it. It does not establish that the full development process was prospectively specified or externally validated.
+
+
 
 ## Reproducibility and data sharing
 
