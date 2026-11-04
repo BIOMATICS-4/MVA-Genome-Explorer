@@ -33,3 +33,22 @@
 ## Public release status
 
 This repository is a partial source-code release. A full data-free reproduction of the currently installed application, including frontend, runtime assets, reference snapshot and complete model-output checking, has not been independently established by this audit. Never commit patient-level VCF/FASTQ/BAM, clinical documents, private intermediate tables or protected reference datasets.
+
+
+## 4 November 2026 clarification — saved Model 6 v1.2 research results
+
+Two distinct saved candidate lists must **not** be silently substituted for one another:
+
+| Record | Top 10 order |
+|---|---|
+| Six-stage consolidated comparison dated 8 October 2026 | BUB1B, ADAMTS1, PIK3C2A, BRINP1, ARL9, TRIB1, NPRL3, FOXP1, GNRHR, ACTB |
+| Frozen 18 October active Model 6 v1.2 snapshot and 19 October audited candidate CSV | BUB1B, ZFP57, PIK3C2A, PKD1, ADAMTS1, STK36, TTN, LAMA3, GHRHR, PEG3 |
+
+The **later Track 1 methods report**, supplied separately by the researcher, explicitly gives BUB1B an AR-pair score of **0.882026** and ADAMTS1 rank **5** (Figure 2/Table 3), and its Results screenshot shows the second order above. The audited 19 October CSV was validated against that frozen result. The uploaded competition-portal CSV is not available here for hash comparison; the reported 22 October submission filename/leaderboard entry does **not** prove byte identity.
+
+**Score context, not a new model version:** the Results view uses the *selected ranked hypothesis's* combined score (**BUB1B AR pair = 0.882026; phase UNRESOLVED**). An earlier AD-style single-variant BUB1B score (**p.Leu737Ter = 0.979006**) appeared in an ACMG/AMP review screenshot. It is **not** the two-variant score, a separate ACMG clinical rating, or proof of a later model. The interface now labels the two score contexts separately.
+
+**Ranking is not descending combined-score sorting.** For the stored Model 6 v1.2 evidence-led ordering, the predicted effect class and gene-level phenotype evidence precede lower-priority tie-breaks such as QC-review status, established gene–disease support and conservative variant-score lower bound. Consequently ADAMTS1 (combined score ≈0.9228) can rank below BUB1B (AR-pair score ≈0.8820). Those 0–1 scores are research heuristics, **not calibrated disease probabilities**. The candidate confidence (EPCR) column in the audit CSV is a rank-based submission encoding, not this logistic score.
+
+**Provenance safeguard:** the live-result endpoint continues to require matching hashes for both source inputs and frozen outputs. When a source input has changed, a separate explicitly **saved/historical** view is available only if frozen result hashes still verify; it must not be described as a newly recalculated or live-revalidated ranking. Neither the historic CSV nor the frozen ranking files were rewritten to make these records agree.
+
