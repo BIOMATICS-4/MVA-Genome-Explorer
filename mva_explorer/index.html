@@ -865,8 +865,8 @@ body{background:#f7f5fc;color:var(--ink)}
  #acmgDrawer.acmg-drawer .acmg-matrix th,#acmgDrawer.acmg-drawer .acmg-matrix td{padding-top:5px;padding-bottom:5px}
  #acmgDrawer.acmg-drawer .acmg-footnote{margin-top:5px}
 }
-.results-order-note{font-size:11px;line-height:1.42;color:#586781;margin:9px 3px 13px;padding:9px 10px;border:1px solid #e5e3ef;border-radius:8px;background:#f8f8fc}
-.results-order-detail{font-size:11px;line-height:1.4;color:#59647c;margin:6px 0 0;max-width:640px}
+.results-order-control{display:flex;align-items:center;justify-content:space-between;gap:9px;margin:9px 2px 5px;color:#697994;font-size:11px}
+.results-order-control select{min-width:0;max-width:158px;padding:5px 6px;border:1px solid #deddea;border-radius:7px;background:#fcfcff;color:#344563;font:inherit;cursor:pointer}
 #acmgDrawer .acmg-score-context{font-size:11px;line-height:1.5;color:#485a75;margin:7px 1px 2px;max-width:750px}
 .results-archive-notice{margin:12px 20px;padding:10px 14px;border:1px solid #d9d9e6;border-radius:9px;color:#45556e;background:#f7f8fb;font-size:12px;line-height:1.4}
 </style>
@@ -959,7 +959,7 @@ body{background:#f7f5fc;color:var(--ink)}
         <button type="button" id="reloadResults" class="results-reload" title="Refresh ranking" aria-label="Refresh ranking">↻</button>
       </div>
       <input class="results-side-search" id="candidateSearch" type="search" placeholder="Search genes" aria-label="Search ranked candidate genes">
-      <p class="results-order-note">Model 6 v1.2 rank: evidence-priority order, not a score-only sort. Values are hypothesis scores.</p>
+      <div class="results-order-control"><label for="resultsOrder">Order</label><select id="resultsOrder" aria-label="Candidate order" title="Score order is a display-only sort, not a new validated model"><option value="score">Score: high → low</option><option value="saved">Saved model rank</option></select></div>
       <div id="candidateList" class="results-gene-list"><div class="results-empty">Loading candidates…</div></div>
     </aside>
     <div id="resultDetail" class="results-details" aria-live="polite"><div class="results-empty">Loading candidate evidence…</div></div>
@@ -1546,9 +1546,18 @@ async function loadAnnotationStatus(){
 
 
 /* Results workbench: presentation-only; ranks and evidence come from existing APIs. */
-const resultsCtx={rows:[],gene:null,view:'overview',query:'',details:new Map(),error:null,loading:false,archived:false};
+const resultsCtx={rows:[],gene:null,view:'overview',query:'',details:new Map(),error:null,loading:false,archived:false,sortOrder:'score'};
 function resultScore(row){return Number(row.ranked_score??row.combined_score??row.score??0)}
 function preciseScore(value){const n=Number(value);return Number.isFinite(n)?n.toFixed(6):'—'}
+function orderedResultRows(){
+  const rows=[...resultsCtx.rows];
+  if(resultsCtx.sortOrder==='score')rows.sort((a,b)=>resultScore(b)-resultScore(a)||(Number(a.gene_rank)||999)-(Number(b.gene_rank)||999));
+  return rows;
+}
+function displayResultRank(r){
+  return resultsCtx.sortOrder==='score'?orderedResultRows().findIndex(x=>x.gene===r.gene)+1:(r.gene_rank||resultsCtx.rows.indexOf(r)+1);
+}
+
 function prettyVariantKey(key){
   const p=String(key||'').split(':');
   return p.length===5?('chr'+p[1]+':'+p[2]+' '+p[3]+'>'+p[4]):String(key||'—');
@@ -1577,13 +1586,13 @@ function resultVariantInfo(r,d,key){
 }
 function resultSideList(){
   const q=resultsCtx.query.toLowerCase();
-  const rows=resultsCtx.rows.filter(r=>String(r.gene||'').toLowerCase().includes(q));
+  const rows=orderedResultRows().filter(r=>String(r.gene||'').toLowerCase().includes(q));
   $('candidateCount').textContent=String(resultsCtx.rows.length).padStart(2,'0');
   $('candidateList').innerHTML=rows.map(r=>
     '<button type="button" class="results-gene-button'+(r.gene===resultsCtx.gene?' active':'')+'" data-gene="'+esc(r.gene)+'" aria-current="'+(r.gene===resultsCtx.gene?'true':'false')+'">'+
-    '<span class="results-gene-rank">'+esc(r.gene_rank||resultsCtx.rows.indexOf(r)+1)+'</span>'+
+    '<span class="results-gene-rank" title="'+(resultsCtx.sortOrder==='score'?'Descending combined-score position; saved model rank '+esc(r.gene_rank):'Original stored Model 6 rank')+'">'+esc(displayResultRank(r))+'</span>'+
     '<span><span class="results-gene-name">'+esc(r.gene)+'</span><span class="results-gene-label">'+esc(r.ranked_moi||r.best_moi||r.moi||'')+'</span></span>'+
-    '<span class="results-gene-score" title="Selected inheritance-hypothesis combined score; rank uses an evidence-priority order.">'+fmt(resultScore(r))+'</span></button>').join('') || '<div class="results-empty">No matching genes.</div>';
+    '<span class="results-gene-score" title="Selected hypothesis combined score (not a calibrated causal probability).">'+fmt(resultScore(r))+'</span></button>').join('') || '<div class="results-empty">No matching genes.</div>';
 }
 function resultChip(text,kind=''){return text?'<span class="results-chip '+esc(kind)+'">'+esc(text)+'</span>':''}
 function resultHypothesisCards(r,d){
@@ -1636,6 +1645,7 @@ function resultContextRows(r,d){
   const phase=firstAr?.phase||r.additional_hypothesis_phase||r.ranked_phase||'';
   const rows=[
     ['Ranked scoring model',r.ranked_moi||r.best_moi||'Not specified'],
+    ...(resultsCtx.sortOrder==='score'?[['Original Model 6 rank',String(r.gene_rank||'—')]]:[]),
     ...(knownMoi?[['Gene MOI evidence',knownMoi]]:[]),
     ...(phase?[['Candidate-pair phase',phase.replaceAll('_',' ').toLowerCase()]]:[]),
   ];
@@ -1668,10 +1678,9 @@ function renderResultGene(){
       '<p class="results-note">Use ACMG Map for a separate variant-level evidence review. No ACMG classification is inferred from the ranking score.</p></div></section>';
   }
   box.innerHTML=
-    '<div class="results-gene-head"><div><div class="results-eyebrow">Candidate / Rank '+esc(String(r.gene_rank||resultsCtx.rows.indexOf(r)+1).padStart(2,'0'))+'</div>'+
+    '<div class="results-gene-head"><div><div class="results-eyebrow">Candidate / '+(resultsCtx.sortOrder==='score'?'Score position ':'Rank ')+esc(String(displayResultRank(r)).padStart(2,'0'))+'</div>'+
     '<div class="results-name-line"><h1>'+esc(r.gene)+'</h1></div>'+
-    '<p class="results-subtitle">'+esc(r.display_model||'Model 6')+' · '+esc(r.ranked_moi||r.best_moi||'')+'</p>'+
-    '<p class="results-order-detail">Hypothesis score '+preciseScore(resultScore(r))+' · rank considers effect class and phenotype evidence before score.</p></div>'+
+    '<p class="results-subtitle">'+esc(r.display_model||'Model 6')+' · '+esc(r.ranked_moi||r.best_moi||'')+'</p></div>'+
     '<div class="results-actions"><button type="button" class="results-action" data-result-action="explore">Explore ↗</button><button type="button" class="results-action" data-result-action="acmg">ACMG Map</button></div></div>'+
     '<div class="results-tabs" role="tablist" aria-label="Candidate evidence sections">'+nav+'</div>'+body;
 }
@@ -1707,7 +1716,7 @@ async function loadResults(){
     resultsCtx.rows=rows;
     $('resultsArchiveNotice').hidden=!resultsCtx.archived;
     resultsCtx.details.clear();
-    if(!rows.some(r=>r.gene===resultsCtx.gene))resultsCtx.gene=rows[0].gene;
+    resultsCtx.gene=orderedResultRows()[0].gene;
     resultSideList();
     await selectResultGene(resultsCtx.gene);
   }catch(err){
@@ -1716,6 +1725,11 @@ async function loadResults(){
   }
 }
 $('candidateSearch').addEventListener('input',e=>{resultsCtx.query=e.target.value;resultSideList()});
+$('resultsOrder').addEventListener('change',e=>{
+  resultsCtx.sortOrder=e.target.value==='score'?'score':'saved';
+  const top=orderedResultRows()[0];
+  if(top){resultsCtx.view='overview';selectResultGene(top.gene)}
+});
 $('candidateList').addEventListener('click',e=>{
   const b=e.target.closest('[data-gene]');if(b){resultsCtx.view='overview';selectResultGene(b.dataset.gene)}
 });
@@ -1831,7 +1845,9 @@ function renderAcmg(d,initial=false){
   acmgState.variantKey=v.key||acmgState.variantKey;
   const activeRanking=resultsCtx.rows.find(r=>r.gene===gd.gene&&r.internal_revision);
   $('acmgGene').textContent=gd.gene||'—';
-  $('acmgRank').textContent='#'+(activeRanking?activeRanking.gene_rank:(gd.rank||'—'));
+  const savedRank=activeRanking?activeRanking.gene_rank:(gd.rank||'—');
+  $('acmgRank').textContent=resultsCtx.sortOrder==='score'&&activeRanking?'Score #'+displayResultRank(activeRanking):'#'+savedRank;
+  $('acmgRank').title=resultsCtx.sortOrder==='score'?'Original stored Model 6 rank: '+savedRank:'Original stored Model 6 rank';
   const rankScore=activeRanking?resultScore(activeRanking):gd.mva_score;
   const pairScore=activeRanking?.ranked_moi==='AR'&&Number(activeRanking.ranked_variant_count)>1;
   $('acmgMvaScore').textContent=(pairScore?'AR pair score':'Ranked hypothesis score')+' '+preciseScore(rankScore);
