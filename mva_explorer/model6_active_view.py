@@ -29,23 +29,36 @@ def _sha(path):
 def _keys(row):
     return [x for x in str(row.get("variant_keys") or "").split(";") if x]
 
-def _load_active(root):
+def _load_result_snapshot(root):
+    """Read a frozen result only after checking immutable stored output hashes.
+
+    This does NOT certify that the current source inputs match the original run.
+    """
     directory = root / "analysis/exomiser_compatibility/current/model6_active_v12"
     path = directory / "manifest.json"
     if not path.is_file():
-        raise HTTPException(404, "Promoted Model 6 result is not installed.")
+        raise HTTPException(404, "Saved Model 6 snapshot is not installed.")
     data = json.loads(path.read_text())
     if data.get("display_version") != "1.2.0" or data.get("active") is not True:
-        raise HTTPException(409, "Model 6 active release metadata invalid.")
+        raise HTTPException(409, "Model 6 snapshot metadata invalid.")
+    verified = data.get("verify_result_sha256") or {}
+    if not verified:
+        raise HTTPException(409, "Model 6 snapshot lacks result checksums.")
+    for filename, digest in verified.items():
+        file = directory / filename
+        if (not file.is_file()) or _sha(file) != digest:
+            raise HTTPException(409, f"Model 6 snapshot result corrupted: {filename}")
+    return directory, data
+
+
+def _load_active(root):
+    """Current results require both stored output and live source verification."""
+    directory, data = _load_result_snapshot(root)
     project_root = root.parent
     for relative, digest in data.get("verify_input_sha256", {}).items():
         src = project_root / relative
         if (not src.is_file()) or _sha(src) != digest:
             raise HTTPException(409, f"Model 6 source changed: {relative}; recalculate first.")
-    for filename, digest in data.get("verify_result_sha256", {}).items():
-        file = directory / filename
-        if (not file.is_file()) or _sha(file) != digest:
-            raise HTTPException(409, f"Model 6 active result file corrupted: {filename}")
     return directory, data
 
 def _view_rows(directory, mode):
@@ -97,13 +110,12 @@ def model6_active_router(root):
             restrictions=METHOD_NOTE,
             installation=meta["installed_at"])
 
-    @router.get("/api/compatibility/model6-current-top10")
-    def current_top10(mode: str="exploratory"):
+    def _top10(mode: str, snapshot_only: bool=False):
         if mode not in ("exploratory","restrictive"):
             raise HTTPException(400,"Mode must be exploratory or restrictive")
-        directory,meta=_load_active(root)
+        directory,meta=(_load_result_snapshot(root) if snapshot_only else _load_active(root))
         ranked=_view_rows(directory,mode)
-        qc=_qc_map(root)
+        qc=({} if snapshot_only else _qc_map(root))
         output=[]
         for row in ranked[:10]:
             keys=_keys(row)
@@ -126,17 +138,27 @@ def model6_active_router(root):
                 "ranked_variant_keys":";".join(keys),
                 "ranked_variant_count":len(keys),
                 "ranked_effects":row.get("effects",""),
-                "ranked_qc":";".join(qc.get(k,"QC_UNASSESSED") for k in keys),
+                "ranked_qc":(row.get("QC_status","SNAPSHOT_QC_STATUS") if snapshot_only else ";".join(qc.get(k,"QC_UNASSESSED") for k in keys)),
                 "disease_id":row.get("disease_id",""),
                 "disease_name":row.get("disease",""),
                 "known_supported_gene_moi":row.get("moi",""),
-                "moi_evidence_caveat":METHOD_NOTE+" "+row.get("warnings",""),
+                "moi_evidence_caveat":METHOD_NOTE+" "+row.get("warnings","") + (" HISTORICAL SNAPSHOT: original inputs no longer match; not a fresh analysis." if snapshot_only else ""),
                 "phase_review_required":phase=="UNRESOLVED",
                 "ranking_mode":mode.upper(),
                 "display_model":RELEASE_LABEL,
-                "internal_revision":meta["scoring_revision"]
+                "internal_revision":meta["scoring_revision"],
+                "archived_snapshot":snapshot_only
             })
         return output
+
+    @router.get("/api/compatibility/model6-current-top10")
+    def current_top10(mode: str="exploratory"):
+        return _top10(mode, snapshot_only=False)
+
+    @router.get("/api/compatibility/model6-saved-top10")
+    def saved_top10(mode: str="exploratory"):
+        """Explicitly archived view; cannot be confused with live verified ranking."""
+        return _top10(mode, snapshot_only=True)
 
     @router.get("/api/compatibility/model6-current-inheritance-details/{gene}")
     def current_inheritance_details(gene: str, mode: str="exploratory"):
@@ -192,4 +214,38 @@ def model6_active_router(root):
             "variant_info":variants,
             "notes":METHOD_NOTE
         }
+    @router.get("/api/compatibility/model6-saved-inheritance-details/{gene}")
+    def saved_inheritance_details(gene: str, mode: str="exploratory"):
+        if mode not in ("exploratory","restrictive"):
+            raise HTTPException(400, "Mode must be exploratory or restrictive")
+        directory, _ = _load_result_snapshot(root)
+        row = next((r for r in _view_rows(directory, mode)[:10] if r["gene"] == gene), None)
+        if row is None:
+            raise HTTPException(404, "Gene not found in saved Model 6 Top 10.")
+        keys = _keys(row)
+        effects = (row.get("effects") or "").split(";")
+        genotypes = (row.get("genotype") or "").split(";")
+        variants = [
+            {"key":key,
+             "gt":genotypes[i] if i<len(genotypes) else "",
+             "effect":effects[i] if i<len(effects) else "",
+             "qc":row.get("QC_status", "SNAPSHOT_QC_ONLY"),
+             "source":"FROZEN_MODEL6_V1_2_SNAPSHOT_NOT_LIVE_CALL_REVALIDATION"}
+            for i,key in enumerate(keys)]
+        return {
+            "gene":gene, "ranked_moi":row["moi"],
+            "ranked_score":float(row["legacy_combined"]),
+            "ranked_keys":keys, "ranked_phase":row.get("phase",""),
+            "clinical_moi_proven":False, "ranking_mode":mode.upper(),
+            "ranked_disease_id":row.get("disease_id",""),
+            "ranked_disease":row.get("disease",""),
+            "hypotheses":[{"moi":row["moi"],"phase":row.get("phase",""),
+                "score":float(row["legacy_combined"]), "keys":keys,
+                "variants":variants,"disease_id":row.get("disease_id",""),
+                "status":row.get("lane_label",""),"warnings":row.get("warnings","")}],
+            "individual_ad":[], "ar":[], "variant_info":variants,
+            "archived_snapshot":True,
+            "notes":"Frozen Model 6 v1.2 result; output hashes checked, but current source inputs no longer match the archived run. Not a fresh recalculation."
+        }
+
     return router
