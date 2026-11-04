@@ -865,8 +865,7 @@ body{background:#f7f5fc;color:var(--ink)}
  #acmgDrawer.acmg-drawer .acmg-matrix th,#acmgDrawer.acmg-drawer .acmg-matrix td{padding-top:5px;padding-bottom:5px}
  #acmgDrawer.acmg-drawer .acmg-footnote{margin-top:5px}
 }
-.results-order-control{display:flex;align-items:center;justify-content:space-between;gap:9px;margin:9px 2px 5px;color:#697994;font-size:11px}
-.results-order-control select{min-width:0;max-width:158px;padding:5px 6px;border:1px solid #deddea;border-radius:7px;background:#fcfcff;color:#344563;font:inherit;cursor:pointer}
+.results-order-note{font-size:11px;line-height:1.42;color:#586781;margin:9px 3px 13px;padding:9px 10px;border:1px solid #e5e3ef;border-radius:8px;background:#f8f8fc}
 #acmgDrawer .acmg-score-context{font-size:11px;line-height:1.5;color:#485a75;margin:7px 1px 2px;max-width:750px}
 .results-archive-notice{margin:12px 20px;padding:10px 14px;border:1px solid #d9d9e6;border-radius:9px;color:#45556e;background:#f7f8fb;font-size:12px;line-height:1.4}
 </style>
@@ -959,7 +958,7 @@ body{background:#f7f5fc;color:var(--ink)}
         <button type="button" id="reloadResults" class="results-reload" title="Refresh ranking" aria-label="Refresh ranking">↻</button>
       </div>
       <input class="results-side-search" id="candidateSearch" type="search" placeholder="Search genes" aria-label="Search ranked candidate genes">
-      <div class="results-order-control"><label for="resultsOrder">Order</label><select id="resultsOrder" aria-label="Candidate order" title="Score order is a display-only sort, not a new validated model"><option value="score">Score: high → low</option><option value="saved">Saved model rank</option></select></div>
+      <p class="results-order-note">Model 6 v1.2 rank: evidence-priority order, not a score-only sort.</p>
       <div id="candidateList" class="results-gene-list"><div class="results-empty">Loading candidates…</div></div>
     </aside>
     <div id="resultDetail" class="results-details" aria-live="polite"><div class="results-empty">Loading candidate evidence…</div></div>
@@ -1546,7 +1545,7 @@ async function loadAnnotationStatus(){
 
 
 /* Results workbench: presentation-only; ranks and evidence come from existing APIs. */
-const resultsCtx={rows:[],gene:null,view:'overview',query:'',details:new Map(),error:null,loading:false,archived:false,sortOrder:'score'};
+const resultsCtx={rows:[],gene:null,view:'overview',query:'',details:new Map(),error:null,loading:false,archived:false,sortOrder:'saved'};
 function resultScore(row){return Number(row.ranked_score??row.combined_score??row.score??0)}
 function preciseScore(value){const n=Number(value);return Number.isFinite(n)?n.toFixed(6):'—'}
 function orderedResultRows(){
@@ -1714,7 +1713,8 @@ async function loadResults(){
     }
     if(!Array.isArray(rows)||!rows.length)throw Error('No ranking rows available');
     resultsCtx.rows=rows;
-    $('resultsArchiveNotice').hidden=!resultsCtx.archived;
+    $('resultsArchiveNotice').hidden=true;
+    $('candidateCount').title=resultsCtx.archived?'Saved snapshot: current source inputs differ from the original run':'Current inputs verified';
     resultsCtx.details.clear();
     resultsCtx.gene=orderedResultRows()[0].gene;
     resultSideList();
@@ -1725,11 +1725,6 @@ async function loadResults(){
   }
 }
 $('candidateSearch').addEventListener('input',e=>{resultsCtx.query=e.target.value;resultSideList()});
-$('resultsOrder').addEventListener('change',e=>{
-  resultsCtx.sortOrder=e.target.value==='score'?'score':'saved';
-  const top=orderedResultRows()[0];
-  if(top){resultsCtx.view='overview';selectResultGene(top.gene)}
-});
 $('candidateList').addEventListener('click',e=>{
   const b=e.target.closest('[data-gene]');if(b){resultsCtx.view='overview';selectResultGene(b.dataset.gene)}
 });
