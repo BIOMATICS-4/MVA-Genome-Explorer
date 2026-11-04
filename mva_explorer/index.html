@@ -865,6 +865,9 @@ body{background:#f7f5fc;color:var(--ink)}
  #acmgDrawer.acmg-drawer .acmg-matrix th,#acmgDrawer.acmg-drawer .acmg-matrix td{padding-top:5px;padding-bottom:5px}
  #acmgDrawer.acmg-drawer .acmg-footnote{margin-top:5px}
 }
+.results-order-note{font-size:11px;line-height:1.42;color:#586781;margin:9px 3px 13px;padding:9px 10px;border:1px solid #e5e3ef;border-radius:8px;background:#f8f8fc}
+.results-order-detail{font-size:11px;line-height:1.4;color:#59647c;margin:6px 0 0;max-width:640px}
+#acmgDrawer .acmg-score-context{font-size:11px;line-height:1.5;color:#485a75;margin:7px 1px 2px;max-width:750px}
 </style>
 </head>
 <body>
@@ -954,6 +957,7 @@ body{background:#f7f5fc;color:var(--ink)}
         <button type="button" id="reloadResults" class="results-reload" title="Refresh ranking" aria-label="Refresh ranking">↻</button>
       </div>
       <input class="results-side-search" id="candidateSearch" type="search" placeholder="Search genes" aria-label="Search ranked candidate genes">
+      <p class="results-order-note">Model 6 v1.2 rank: evidence-priority order, not a score-only sort. Values are hypothesis scores.</p>
       <div id="candidateList" class="results-gene-list"><div class="results-empty">Loading candidates…</div></div>
     </aside>
     <div id="resultDetail" class="results-details" aria-live="polite"><div class="results-empty">Loading candidate evidence…</div></div>
@@ -1028,6 +1032,7 @@ body{background:#f7f5fc;color:var(--ink)}
   <div class="acmg-body">
     <section class="acmg-section acmg-identity">
       <div class="acmg-gene-line"><span id="acmgGene" class="acmg-gene-name">—</span><span id="acmgRank" class="acmg-rank-pill">—</span><span id="acmgMvaScore" class="acmg-score-pill">—</span></div>
+      <p id="acmgScoreContext" class="acmg-score-context" aria-live="polite"></p>
       <div id="acmgVariantTabs" class="acmg-variant-tabs"></div>
       <div id="acmgMeta" class="acmg-meta"></div>
     </section>
@@ -1541,6 +1546,7 @@ async function loadAnnotationStatus(){
 /* Results workbench: presentation-only; ranks and evidence come from existing APIs. */
 const resultsCtx={rows:[],gene:null,view:'overview',query:'',details:new Map(),error:null,loading:false};
 function resultScore(row){return Number(row.ranked_score??row.combined_score??row.score??0)}
+function preciseScore(value){const n=Number(value);return Number.isFinite(n)?n.toFixed(6):'—'}
 function prettyVariantKey(key){
   const p=String(key||'').split(':');
   return p.length===5?('chr'+p[1]+':'+p[2]+' '+p[3]+'>'+p[4]):String(key||'—');
@@ -1575,7 +1581,7 @@ function resultSideList(){
     '<button type="button" class="results-gene-button'+(r.gene===resultsCtx.gene?' active':'')+'" data-gene="'+esc(r.gene)+'" aria-current="'+(r.gene===resultsCtx.gene?'true':'false')+'">'+
     '<span class="results-gene-rank">'+esc(r.gene_rank||resultsCtx.rows.indexOf(r)+1)+'</span>'+
     '<span><span class="results-gene-name">'+esc(r.gene)+'</span><span class="results-gene-label">'+esc(r.ranked_moi||r.best_moi||r.moi||'')+'</span></span>'+
-    '<span class="results-gene-score">'+fmt(resultScore(r))+'</span></button>').join('') || '<div class="results-empty">No matching genes.</div>';
+    '<span class="results-gene-score" title="Selected inheritance-hypothesis combined score; rank uses an evidence-priority order.">'+fmt(resultScore(r))+'</span></button>').join('') || '<div class="results-empty">No matching genes.</div>';
 }
 function resultChip(text,kind=''){return text?'<span class="results-chip '+esc(kind)+'">'+esc(text)+'</span>':''}
 function resultHypothesisCards(r,d){
@@ -1662,7 +1668,8 @@ function renderResultGene(){
   box.innerHTML=
     '<div class="results-gene-head"><div><div class="results-eyebrow">Candidate / Rank '+esc(String(r.gene_rank||resultsCtx.rows.indexOf(r)+1).padStart(2,'0'))+'</div>'+
     '<div class="results-name-line"><h1>'+esc(r.gene)+'</h1></div>'+
-    '<p class="results-subtitle">'+esc(r.display_model||'Model 6')+' · '+esc(r.ranked_moi||r.best_moi||'')+'</p></div>'+
+    '<p class="results-subtitle">'+esc(r.display_model||'Model 6')+' · '+esc(r.ranked_moi||r.best_moi||'')+'</p>'+
+    '<p class="results-order-detail">Hypothesis score '+preciseScore(resultScore(r))+' · rank considers effect class and phenotype evidence before score.</p></div>'+
     '<div class="results-actions"><button type="button" class="results-action" data-result-action="explore">Explore ↗</button><button type="button" class="results-action" data-result-action="acmg">ACMG Map</button></div></div>'+
     '<div class="results-tabs" role="tablist" aria-label="Candidate evidence sections">'+nav+'</div>'+body;
 }
@@ -1817,10 +1824,17 @@ function renderAcmg(d,initial=false){
   const activeRanking=resultsCtx.rows.find(r=>r.gene===gd.gene&&r.internal_revision);
   $('acmgGene').textContent=gd.gene||'—';
   $('acmgRank').textContent='#'+(activeRanking?activeRanking.gene_rank:(gd.rank||'—'));
-  $('acmgMvaScore').textContent=(activeRanking?(activeRanking.ranked_moi||''):(gd.ranking_moi||''))+' · '+fmt(activeRanking?resultScore(activeRanking):gd.mva_score);
-  $('acmgMvaScore').title=(activeRanking?'Model 6 v1.2.0 exploratory research ranking. ':'Historical ranking. ')+
-    'This is not a clinical classification.'+
-    (activeRanking?' Prior '+(gd.ranking_moi||'')+' single-variant score: '+fmt(gd.mva_score)+'.':'');
+  const rankScore=activeRanking?resultScore(activeRanking):gd.mva_score;
+  const pairScore=activeRanking?.ranked_moi==='AR'&&Number(activeRanking.ranked_variant_count)>1;
+  $('acmgMvaScore').textContent=(pairScore?'AR pair score':'Ranked hypothesis score')+' '+preciseScore(rankScore);
+  $('acmgMvaScore').title='Model 6 v1.2.0 hypothesis evidence score; not an ACMG classification, diagnostic probability, or the sole ranking key.';
+  const oldVariantScore=Number(gd.mva_score);
+  const hasDistinctBub1bReview=(gd.gene==='BUB1B'&&pairScore&&
+    (gd.ranking_moi||'')==='AD'&&Number.isFinite(oldVariantScore)&&
+    Math.abs(oldVariantScore-resultScore(activeRanking))>0.000001);
+  $('acmgScoreContext').textContent=hasDistinctBub1bReview
+    ?'Different score context: '+preciseScore(oldVariantScore)+' is the earlier AD-style single-variant BUB1B score (p.Leu737Ter), not the AR pair score or an ACMG/AMP classification. Phase remains UNRESOLVED.'
+    :'This is the selected model-ranking hypothesis score, not an ACMG/AMP classification. Gene order is evidence-based, not a simple descending score sort.';
   renderAcmgVariants(gd,acmgState.variantKey);
   const cr=v.clinvar_record;
   const clinvarSource=cr?('P/LP means Pathogenic/Likely pathogenic. ClinVar '+cr.record+' (variant-level): '+cr.submissions+'; '+cr.review_status+'; checked '+cr.checked_date+'; '+cr.url):
@@ -1845,6 +1859,7 @@ async function openAcmg(gene){
     $('acmgRank').textContent='—';
     $('acmgMvaScore').textContent='—';
     $('acmgMvaScore').removeAttribute('title');
+    $('acmgScoreContext').textContent='';
     $('acmgVariantTabs').innerHTML='';
     $('acmgMeta').innerHTML='';
     $('acmgMatrixBody').innerHTML='<tr><td colspan="7" class="acmg-empty">ACMG evidence unavailable for '+esc(acmgState.gene)+'.</td></tr>';
