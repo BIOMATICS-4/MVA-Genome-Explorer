@@ -1,5 +1,34 @@
 # MVA Genome Explorer — Hackathon submissions
 
+## Model 6 v1.2 — Saved Top 10 and ranking scores
+
+| Rank | Gene | Disease / phenotype context¹ | **← Phenotype match (P)** | Disease–HPO support | Variant evidence (V) | Combined score (S) |
+|---:|---|---|---:|---:|---:|---:|
+| **1** | **BUB1B** | Mosaic variegated aneuploidy syndrome 1 | **← 0.7657** | 0.743605 | 0.799321 | 0.882026 |
+| 2 | ZFP57 | Diabetes mellitus, transient neonatal, 1 | **← 0.6721** | 0.216122 | 0.364518 | 0.049533 |
+| 3 | PIK3C2A | Oculocerebrodental syndrome | **← 0.6648** | 0.453376 | 0.445816 | 0.092493 |
+| 4 | PKD1 | Autosomal dominant polycystic kidney disease | **← 0.6494** | 0.178863 | 0.741125 | 0.566705 |
+| 5 | ADAMTS1 | Autosomal dominant prognathism | **← 0.6346** | — | 0.998801 | 0.922801 |
+| 6 | STK36 | Primary ciliary dyskinesia | **← 0.6176** | 0.071677 | 0.599528 | 0.203829 |
+| 7 | TTN | Tibial muscular dystrophy | **← 0.5847** | 0.132194 | 0.596020 | 0.149730 |
+| 8 | LAMA3 | Unresolved disease hypothesis | **← 0.5766** | — | 0.600000 | 0.143764 |
+| 9 | GHRHR | Unresolved disease hypothesis | **← 0.5741** | — | 0.593442 | 0.133474 |
+| 10 | PEG3 | Unresolved disease hypothesis | **← 0.5695** | — | 0.840055 | 0.585756 |
+
+![Model 6 v1.2 Results interface](assets/model6/model6-v12-results-clarified.png)
+
+*Figure 1. Model 6 v1.2 saved evidence-led gene ranking. Phenotype-match scores (P, marked ← above) explain the ordering of these ten same-effect-class candidates; the displayed combined scores (S) are a separate metric.*
+
+![ACMG/AMP score context](assets/model6/model6-v12-acmg-context.png)
+
+*Figure 2. ACMG/AMP-oriented variant review: BUB1B's selected AR-pair score is 0.882026 (phase UNRESOLVED), whereas 0.979006 is the earlier AD-style single-variant score. Neither is an ACMG classification.*
+
+**How the ranks were produced.** The frozen Model 6 v1.2 sorting rule first groups hypotheses by predicted effect class, then prioritises **gene–phenotype similarity (P)**. All ten listed genes share the predicted coding/essential-splice priority class, so P determines their relative order here. Subsequent tie-breakers include QC-review status, established gene–disease evidence, variant-evidence lower bound and disease–HPO support. **The combined score (S), calculated from phenotype match and variant evidence, did not directly sort this saved list**; that is why ADAMTS1 can show 0.922801 at rank 5 while BUB1B shows 0.882026 at rank 1.
+
+¹ The *disease / phenotype context* column reproduces the **stored disease hypothesis**, not the patient's individual HPO term list, a diagnosis, or a numeric gene–disease validity score. “—” means the disease–HPO support value is absent from the saved row, **not zero**. The V column reproduces the saved variant-evidence upper-bound input to the logistic score; uncertain phase and missing allele-frequency information still require review. None of these scores is a calibrated probability of pathogenicity.
+
+**Provenance.** These are frozen 18 October 2026 Model 6 v1.2 results. This table documents the existing ordering; no ranking weights, candidate positions or original submission records were changed. The later Track 1 methods report illustrates this saved order, while an earlier six-stage comparison contains a different Top 10. The competition-portal CSV's exact bytes have not been independently recovered. [See the full reconciliation](docs/MODEL6_V1_2_RECONCILIATION.md).
+
 ## Explore the submissions
 
 | Track | Methods | Results |
@@ -12,45 +41,6 @@
 [![BUB1B disease network](assets/biograph/bub1b-semantic-disease-network.png)](assets/biograph/README.md)
 
 [**See all three BioGraph screenshots (Classic pathways, Semantic diseases, and BUB3 GO terms) →**](assets/biograph/README.md)
-
-
-## Model 6 v1.2 — Results and score contexts
-
-**Two ways to view the same saved results:** *Score: high → low* orders genes by their existing numerical hypothesis scores (ADAMTS1 0.923, BUB1B 0.882). *Saved model rank* restores the original evidence-led order (BUB1B #1, ADAMTS1 #5). **Changing the display order does not recalculate the model or revise the submitted CSV.** An independently validated, disease- and variant-weighted score is still needed before replacing the scientific ranking.
-
-For BUB1B, **0.882026** is the unphased AR candidate-pair score. The **0.979006** in an earlier ACMG review reflects an AD-style *single-variant* score, **not** an ACMG classification or a later replacement model.
-
-The later Track 1 methods report matches the saved model-ranking order; an earlier six-stage report documents a different Top 10. Portal-file byte identity remains unconfirmed. [Read the provenance audit](docs/MODEL6_V1_2_RECONCILIATION.md).
-
-![Model 6 v1.2 Results — saved model rank](assets/model6/model6-v12-results-clarified.png)
-
-*Results screenshot showing **Saved model rank** order; the current UI also provides score-order viewing.*
-
-![Model 6 v1.2 ACMG score context](assets/model6/model6-v12-acmg-context.png)
-
-*ACMG/AMP review distinguishes the AR pair from the earlier single-variant scoring context.*
-
-### Model 6 v1.2 — saved ranking evidence
-
-The ten saved candidates below share the same predicted **coding/essential-splice effect-priority class**. Within this class, **gene–phenotype similarity (P)** is the first distinguishing ranking criterion, so these particular P values descend with saved gene rank. The full ordering also considers QC-review status, established gene–disease evidence, and variant evidence where needed; **P is not an overall probability of causality**.
-
-| Saved rank | Gene | Gene–phenotype similarity (P) | Recorded GenCC validity |
-|---:|---|---:|---|
-| 1 | **BUB1B** | **0.7657** | Definitive; Strong |
-| 2 | ZFP57 | 0.6721 | Definitive; Moderate; Strong |
-| 3 | PIK3C2A | 0.6648 | Strong; Supportive |
-| 4 | PKD1 | 0.6494 | Definitive; Strong; Supportive |
-| 5 | ADAMTS1 | 0.6346 | Limited |
-| 6 | STK36 | 0.6176 | Supportive |
-| 7 | TTN | 0.5847 | Moderate; Strong; Supportive |
-| 8 | LAMA3 | 0.5766 | Not recorded in this result |
-| 9 | GHRHR | 0.5741 | Not recorded in this result |
-| 10 | PEG3 | 0.5695 | Not recorded in this result |
-
-*Source: frozen 18 October 2026 Model 6 v1.2 candidate-ranking snapshot. The GenCC column reflects recorded categorical gene–disease validity annotations (potentially spanning diseases), **not a numerical gene–disease score or proof of an MVA association**. The logistic combined hypothesis scores are a distinct quantity.*
-
-**Provenance:** This table documents existing ranking inputs and saved order; no genes, weights, scores, or submitted rows were changed to generate it. It does not establish that the full development process was prospectively specified or externally validated.
-
 
 
 ## Reproducibility and data sharing
