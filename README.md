@@ -2,7 +2,7 @@
 
 ## Model 6 v1.2 — Saved Top 10 and ranking scores
 
-| Rank | Gene | Disease / phenotype context¹ | **← Phenotype match (P)** | Disease–HPO support | Variant evidence (V) | Combined score (S) |
+| Rank | Gene | Disease / phenotype context | **← Phenotype match (P)** | Disease–HPO support | Variant evidence (V) | Combined score (S) |
 |---:|---|---|---:|---:|---:|---:|
 | **1** | **BUB1B** | Mosaic variegated aneuploidy syndrome 1 | **← 0.7657** | 0.743605 | 0.799321 | 0.882026 |
 | 2 | ZFP57 | Diabetes mellitus, transient neonatal, 1 | **← 0.6721** | 0.216122 | 0.364518 | 0.049533 |
