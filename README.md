@@ -19,15 +19,23 @@
 
 *Figure 1. Model 6 v1.2 saved evidence-led gene ranking. Phenotype-match scores (P, marked ← above) explain the ordering of these ten same-effect-class candidates; the displayed combined scores (S) are a separate metric.*
 
-![ACMG/AMP score context](assets/model6/model6-v12-acmg-context.png)
+### How the scores were calculated
 
-*Figure 2. ACMG/AMP-oriented variant review: BUB1B's selected AR-pair score is 0.882026 (phase UNRESOLVED), whereas 0.979006 is the earlier AD-style single-variant score. Neither is an ACMG classification.*
+**Phenotype match (P):** Imported Exomiser/HiPhive-style gene–phenotype similarity. The arrows in the table identify the score that determined the ordering **within this particular Top 10**, because all ten candidates share the same broad predicted coding/essential-splice effect class.
 
-**How the ranks were produced.** The frozen Model 6 v1.2 sorting rule first groups hypotheses by predicted effect class, then prioritises **gene–phenotype similarity (P)**. All ten listed genes share the predicted coding/essential-splice priority class, so P determines their relative order here. Subsequent tie-breakers include QC-review status, established gene–disease evidence, variant-evidence lower bound and disease–HPO support. **The combined score (S), calculated from phenotype match and variant evidence, did not directly sort this saved list**; that is why ADAMTS1 can show 0.922801 at rank 5 while BUB1B shows 0.882026 at rank 1.
+**Variant evidence (V):** For coding/splice alleles, the higher of the consequence-based support weight and available computational predictor score, multiplied by the population-frequency multiplier. For a two-variant AR hypothesis, V is the mean of the two allele scores. Regulatory evidence uses ReMM × gene-linkage confidence. The table shows the saved V upper-bound value; missing population frequency does not prove rarity.
 
-¹ The *disease / phenotype context* column reproduces the **stored disease hypothesis**, not the patient's individual HPO term list, a diagnosis, or a numeric gene–disease validity score. “—” means the disease–HPO support value is absent from the saved row, **not zero**. The V column reproduces the saved variant-evidence upper-bound input to the logistic score; uncertain phase and missing allele-frequency information still require review. None of these scores is a calibrated probability of pathogenicity.
+**Combined hypothesis score (S):** Both P and V enter the existing logistic formula:
 
-**Provenance.** These are frozen 18 October 2026 Model 6 v1.2 results. This table documents the existing ordering; no ranking weights, candidate positions or original submission records were changed. The later Track 1 methods report illustrates this saved order, while an earlier six-stage comparison contains a different Top 10. The competition-portal CSV's exact bytes have not been independently recovered. [See the full reconciliation](docs/MODEL6_V1_2_RECONCILIATION.md).
+`Z = −13.28813 + 10.39451 × P + 9.18381 × V`
+
+`S = 1 / (1 + exp(−Z))`
+
+For **BUB1B**, P = **0.7657** and V ≈ **0.799321** yield **S = 0.882026** for its AR candidate pair (phase **UNRESOLVED**).
+
+**How rank was assigned:** Model 6 v1.2 first prioritises predicted effect class and then P; QC-review status, established gene–disease evidence, conservative variant support and disease–HPO support act as subsequent ordering criteria. **S is a separate combined-evidence score, not the value used to sort these saved ranks.** Hence ADAMTS1's S = 0.922801 can exceed BUB1B's S = 0.882026 while ADAMTS1 remains rank 5.
+
+*The disease-context column lists a stored hypothesis, not confirmed diagnosis. Missing disease–HPO support is shown as — rather than zero. These scores are research prioritisation values, not calibrated pathogenicity probabilities.*
 
 ## Explore the submissions
 
