@@ -868,6 +868,7 @@ body{background:#f7f5fc;color:var(--ink)}
 .results-order-note{font-size:11px;line-height:1.42;color:#586781;margin:9px 3px 13px;padding:9px 10px;border:1px solid #e5e3ef;border-radius:8px;background:#f8f8fc}
 .results-order-detail{font-size:11px;line-height:1.4;color:#59647c;margin:6px 0 0;max-width:640px}
 #acmgDrawer .acmg-score-context{font-size:11px;line-height:1.5;color:#485a75;margin:7px 1px 2px;max-width:750px}
+.results-archive-notice{margin:12px 20px;padding:10px 14px;border:1px solid #d9d9e6;border-radius:9px;color:#45556e;background:#f7f8fb;font-size:12px;line-height:1.4}
 </style>
 </head>
 <body>
@@ -947,6 +948,7 @@ body{background:#f7f5fc;color:var(--ink)}
 </section>
 
 <section id="view-results" class="view">
+  <div id="resultsArchiveNotice" class="results-archive-notice" hidden>Saved Model 6 v1.2 snapshot. Stored output hashes verified; original input files have changed. This view is historical, not a new analysis.</div>
   <svg class="result-dna top" viewBox="0 0 270 220" aria-hidden="true"><path d="M35 -15 C200 65 80 130 240 235 M240 -15 C80 65 200 130 35 235"/><path d="M89 11L190 11 M129 42L149 42 M113 76L166 76 M85 110L192 110 M112 142L165 142 M127 176L149 176 M91 209L188 209" stroke-width="4"/><circle cx="89" cy="11" r="12"/><circle cx="149" cy="42" r="10"/><circle cx="113" cy="76" r="11"/><circle cx="192" cy="110" r="12"/><circle cx="165" cy="142" r="10"/><circle cx="127" cy="176" r="10"/></svg>
   <svg class="result-dna bottom" viewBox="0 0 270 220" aria-hidden="true"><path d="M35 -15 C200 65 80 130 240 235 M240 -15 C80 65 200 130 35 235"/><path d="M89 11L190 11 M129 42L149 42 M113 76L166 76 M85 110L192 110 M112 142L165 142 M127 176L149 176" stroke-width="4"/><circle cx="89" cy="11" r="12"/><circle cx="149" cy="42" r="10"/><circle cx="113" cy="76" r="11"/><circle cx="192" cy="110" r="12"/></svg>
   <div class="results-layout">
@@ -1061,7 +1063,7 @@ let alleleOffset=0,alleleLoading=false,alleleDone=false,alleleRun='';
 
 async function json(url,opts){
   const r=await fetch(url,opts);
-  if(!r.ok) throw Error(await r.text());
+  if(!r.ok) throw Error("HTTP "+r.status+": "+await r.text());
   return r.json();
 }
 function esc(v){return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
@@ -1544,7 +1546,7 @@ async function loadAnnotationStatus(){
 
 
 /* Results workbench: presentation-only; ranks and evidence come from existing APIs. */
-const resultsCtx={rows:[],gene:null,view:'overview',query:'',details:new Map(),error:null,loading:false};
+const resultsCtx={rows:[],gene:null,view:'overview',query:'',details:new Map(),error:null,loading:false,archived:false};
 function resultScore(row){return Number(row.ranked_score??row.combined_score??row.score??0)}
 function preciseScore(value){const n=Number(value);return Number.isFinite(n)?n.toFixed(6):'—'}
 function prettyVariantKey(key){
@@ -1680,7 +1682,7 @@ async function selectResultGene(gene){
   if(resultsCtx.details.has(gene))return;
   try{
     const current=Boolean(resultsCtx.rows[0]?.internal_revision);
-    const endpoint=current?'/api/compatibility/model6-current-inheritance-details/':'/api/compatibility/model6-inheritance-details/';
+    const endpoint=resultsCtx.archived?'/api/compatibility/model6-saved-inheritance-details/':current?'/api/compatibility/model6-current-inheritance-details/':'/api/compatibility/model6-inheritance-details/';
     const d=await json(endpoint+encodeURIComponent(gene));
     resultsCtx.details.set(gene,d);
   }catch(err){resultsCtx.details.set(gene,{individual_ad:[],ar:[],error:String(err.message||err)})}
@@ -1688,22 +1690,28 @@ async function selectResultGene(gene){
 }
 async function loadResults(){
   try{
-    let rows;
+    let rows;resultsCtx.archived=false;
     try{rows=await json('/api/compatibility/model6-current-top10')}catch(activeError){
+      if(String(activeError.message||'').includes('409')){
+        rows=await json('/api/compatibility/model6-saved-top10');
+        resultsCtx.archived=true;
+      } else {
       if(!String(activeError.message||'').includes('404'))throw activeError;
       try{rows=await json('/api/compatibility/model6-consistent-top10')}catch(e){
         if(String(e.message||'').includes('409'))throw e;
         rows=await json('/api/compatibility/top10-qc-strict');
       }
+      }
     }
     if(!Array.isArray(rows)||!rows.length)throw Error('No ranking rows available');
     resultsCtx.rows=rows;
+    $('resultsArchiveNotice').hidden=!resultsCtx.archived;
     resultsCtx.details.clear();
     if(!rows.some(r=>r.gene===resultsCtx.gene))resultsCtx.gene=rows[0].gene;
     resultSideList();
     await selectResultGene(resultsCtx.gene);
   }catch(err){
-    resultsCtx.rows=[];$('candidateCount').textContent='00';$('candidateList').innerHTML='';
+    resultsCtx.rows=[];$('resultsArchiveNotice').hidden=true;$('candidateCount').textContent='00';$('candidateList').innerHTML='';
     $('resultDetail').innerHTML='<div class="results-empty"><strong>Model 6 ranking unavailable.</strong><p>'+esc(String(err.message||err))+'</p></div>';
   }
 }
