@@ -13,6 +13,24 @@
 
 [**See all three BioGraph screenshots (Classic pathways, Semantic diseases, and BUB3 GO terms) →**](assets/biograph/README.md)
 
+
+## Model 6 v1.2 — ranked candidates and score context
+
+**Gene rank is evidence-based, not a descending sort of the displayed score.** Model 6 v1.2 prioritises effect class and gene–phenotype evidence, with QC, gene–disease support and variant evidence informing subsequent decisions. The displayed logistic value describes the **selected inheritance hypothesis**.
+
+**BUB1B Rank 1:** the two-variant **AR candidate-pair score is 0.882026**; phase remains **UNRESOLVED**. The **0.979006** shown in an earlier ACMG/AMP review screenshot refers instead to the *p.Leu737Ter AD-style single-variant score*—**not an ACMG/AMP classification or a newer final model score**.
+
+**Record clarification:** the 18 October frozen ranking and 19 October audited candidate CSV list **BUB1B, ZFP57, PIK3C2A, PKD1, ADAMTS1, STK36, TTN, LAMA3, GHRHR, PEG3**. The later Track 1 report illustrates this order (including ADAMTS1 at rank 5). An earlier six-stage report listed a different Top 10; its historical results are preserved. The 22 October portal upload is recorded by filename, but **its exact bytes have not been independently confirmed**. [Full provenance comparison](docs/MODEL6_V1_2_RECONCILIATION.md).
+
+![Updated Model 6 v1.2 Results interface](assets/model6/model6-v12-results-clarified.png)
+
+*Updated Results view: ranking and hypothesis scores are explicitly distinguished. Where source inputs have changed, saved results are labelled historical, not freshly recalculated.*
+
+![Updated ACMG/AMP score context](assets/model6/model6-v12-acmg-context.png)
+
+*ACMG/AMP review view: the AR-pair score and earlier single-variant score refer to different hypotheses; neither is a clinical classification.*
+
+
 ## Reproducibility and data sharing
 
 [Installation status](INSTALLATION.md) · [Data availability and restrictions](DATA_AVAILABILITY.md)
