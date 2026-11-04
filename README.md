@@ -14,21 +14,21 @@
 [**See all three BioGraph screenshots (Classic pathways, Semantic diseases, and BUB3 GO terms) →**](assets/biograph/README.md)
 
 
-## Model 6 v1.2 — ranked candidates and score context
+## Model 6 v1.2 — Results and score contexts
 
-**Gene rank is evidence-based, not a descending sort of the displayed score.** Model 6 v1.2 prioritises effect class and gene–phenotype evidence, with QC, gene–disease support and variant evidence informing subsequent decisions. The displayed logistic value describes the **selected inheritance hypothesis**.
+**Two ways to view the same saved results:** *Score: high → low* orders genes by their existing numerical hypothesis scores (ADAMTS1 0.923, BUB1B 0.882). *Saved model rank* restores the original evidence-led order (BUB1B #1, ADAMTS1 #5). **Changing the display order does not recalculate the model or revise the submitted CSV.** An independently validated, disease- and variant-weighted score is still needed before replacing the scientific ranking.
 
-**BUB1B Rank 1:** the two-variant **AR candidate-pair score is 0.882026**; phase remains **UNRESOLVED**. The **0.979006** shown in an earlier ACMG/AMP review screenshot refers instead to the *p.Leu737Ter AD-style single-variant score*—**not an ACMG/AMP classification or a newer final model score**.
+For BUB1B, **0.882026** is the unphased AR candidate-pair score. The **0.979006** in an earlier ACMG review reflects an AD-style *single-variant* score, **not** an ACMG classification or a later replacement model.
 
-**Record clarification:** the 18 October frozen ranking and 19 October audited candidate CSV list **BUB1B, ZFP57, PIK3C2A, PKD1, ADAMTS1, STK36, TTN, LAMA3, GHRHR, PEG3**. The later Track 1 report illustrates this order (including ADAMTS1 at rank 5). An earlier six-stage report listed a different Top 10; its historical results are preserved. The 22 October portal upload is recorded by filename, but **its exact bytes have not been independently confirmed**. [Full provenance comparison](docs/MODEL6_V1_2_RECONCILIATION.md).
+The later Track 1 methods report matches the saved model-ranking order; an earlier six-stage report documents a different Top 10. Portal-file byte identity remains unconfirmed. [Read the provenance audit](docs/MODEL6_V1_2_RECONCILIATION.md).
 
-![Updated Model 6 v1.2 Results interface](assets/model6/model6-v12-results-clarified.png)
+![Model 6 v1.2 Results — saved model rank](assets/model6/model6-v12-results-clarified.png)
 
-*Updated Results view: ranking and hypothesis scores are explicitly distinguished. Where source inputs have changed, saved results are labelled historical, not freshly recalculated.*
+*Results screenshot showing **Saved model rank** order; the current UI also provides score-order viewing.*
 
-![Updated ACMG/AMP score context](assets/model6/model6-v12-acmg-context.png)
+![Model 6 v1.2 ACMG score context](assets/model6/model6-v12-acmg-context.png)
 
-*ACMG/AMP review view: the AR-pair score and earlier single-variant score refer to different hypotheses; neither is a clinical classification.*
+*ACMG/AMP review distinguishes the AR pair from the earlier single-variant scoring context.*
 
 
 ## Reproducibility and data sharing
