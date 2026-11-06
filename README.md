@@ -76,7 +76,7 @@ Drug Cascader will be integrated with **MVA Genome Explorer** and **BioGraph** t
 
 ![Drug Cascader prototype — amlexanox cascade](future-prospects/drug-cascader-screenshot.png)
 
-*Figure 3. Current Drug Cascader prototype showing amlexanox as the starting drug, its PDE4C target and an expanded disease-association branch. The connections and numerical labels represent database-linked evidence and association scores, not treatment-response probabilities or demonstrated therapeutic effects. Predictions of tissue exposure, persistence and beneficial or harmful outcomes remain under development.*
+*Figure 3. Current Drug Cascader prototype showing amlexanox as the starting drug, its database-linked association with phosphodiesterase 4C (PDE4C), and an expanded disease-association branch. PDE4C is an enzyme that breaks down cyclic adenosine monophosphate (cAMP), a signalling molecule involved in regulating cellular responses. The connections and numerical labels represent database-linked evidence and association scores, not treatment-response probabilities or demonstrated therapeutic effects. Predictions of tissue exposure, persistence and beneficial or harmful outcomes remain under development.*
 
 ---
 
