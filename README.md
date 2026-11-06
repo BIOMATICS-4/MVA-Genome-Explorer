@@ -74,9 +74,9 @@ Drug Cascader will be integrated with **MVA Genome Explorer** and **BioGraph** t
 
 ### Drug Cascader — Current Prototype
 
-<!-- Screenshot will be added when the prototype image is available. -->
+![Drug Cascader prototype — amlexanox cascade](future-prospects/drug-cascader-screenshot.png)
 
-*Current development-stage interface of Drug Cascader.*
+*Figure 3. Current Drug Cascader prototype showing amlexanox as the starting drug, its PDE4C target and an expanded disease-association branch. The connections and numerical labels represent database-linked evidence and association scores, not treatment-response probabilities or demonstrated therapeutic effects. Predictions of tissue exposure, persistence and beneficial or harmful outcomes remain under development.*
 
 ---
 
