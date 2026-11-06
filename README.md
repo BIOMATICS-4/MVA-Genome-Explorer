@@ -1,13 +1,5 @@
 # MVA Genome Explorer — Hackathon submissions
 
-## Future Prospects — GENE-KNOW-DRUG (GKG)
-
-**The hackathon inspired a new direction: Drug Cascader.** I am developing an interactive pharmacology tool that currently explores drug-associated molecular relationships and aims to predict a drug's journey after administration — including tissue exposure, persistence, and the likelihood of beneficial or harmful effects.
-
-Drug Cascader is planned to integrate with **MVA Genome Explorer** and **BioGraph** as **GENE-KNOW-DRUG (GKG)**, a research-driven initiative that reaches beyond MVA to explore rare genetic diseases and potential therapeutic strategies.
-
-**[Explore Future Prospects — Drug Cascader and GKG →](future-prospects/)**
-
 ## Model 6 v1.2 — Saved Top 10 and ranking scores
 
 | Rank | Gene | Disease / phenotype context | **← Phenotype match (P)** | Disease–HPO support | Variant evidence (V) | Combined score (S) |
@@ -104,3 +96,13 @@ The public `mva_explorer/` directory now includes a snapshot of the locally inst
 - The four candidate research hypotheses in the most recent submission materials were **niacin, 4-phenylbutyrate (4-PBA), gentamicin and amlexanox**. **NMN was a mechanistic comparator only.** No patient-specific drug or rescue experiment was performed.
 
 **Browse the preliminary extracted paper records on GitHub:** [87-study workbook text mirror — pending completion](docs/research/G1_CONTINUOUS_REVIEW_87_STUDIES_TEXT_MIRROR_PENDING.txt). The text mirror is a searchable companion to the [Excel workbook](https://github.com/BIOMATICS-4/MVA-Genome-Explorer/blob/main/Research%20into%20scoping%20review/G1_Continuous_Review_193_87_Studies_Audited.xlsx); it does not preserve spreadsheet styling.
+
+---
+
+## Future Prospects — GENE-KNOW-DRUG (GKG)
+
+**The hackathon inspired a new direction: Drug Cascader.** I am developing an interactive pharmacology tool that currently explores drug-associated molecular relationships and aims to predict a drug's journey after administration — including tissue exposure, persistence, and the likelihood of beneficial or harmful effects.
+
+Drug Cascader is planned to integrate with **MVA Genome Explorer** and **BioGraph** as **GENE-KNOW-DRUG (GKG)**, a research-driven initiative that reaches beyond MVA to explore rare genetic diseases and potential therapeutic strategies.
+
+**[Explore Future Prospects — Drug Cascader and GKG →](future-prospects/)**
