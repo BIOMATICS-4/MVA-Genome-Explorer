@@ -1,15 +1,26 @@
 # Track 1 — Genomic variant prioritisation
 
-**Objective:** Rank plausible candidate genes and variants from whole-genome variation using variant consequence, population rarity, sample-level quality control, phenotype evidence and inheritance-aware hypotheses.
+**Objective:** Rank plausible candidate genes and variants from whole-genome variation using variant consequence, population frequency, sample-level quality control, phenotype evidence and inheritance-aware hypotheses.
 
-**Key interpretation:** The BUB1B p.Leu737Ter predicted loss-of-function allele and p.Asn1002Lys missense VUS are both heterozygous. Phase remains unresolved; detection of two variants does not establish a compound-heterozygous diagnosis.
+**Key interpretation:** The BUB1B p.Leu737Ter predicted loss-of-function allele and p.Asn1002Lys missense VUS are both heterozygous. Phase remains unresolved; detection of two variants does not establish a confirmed compound-heterozygous diagnosis.
 
-**Analysis components:** GRCh38 alignment and VEP annotation; ClinVar, gnomAD and dbSNP evidence; genomic QC, inheritance modelling and reproducible scoring; ACMG/AMP evidence flags for human review. Predictions are not clinical classifications.
+**Analysis components:** GRCh38 reference and VEP annotation, ClinVar/gnomAD/dbSNP evidence, variant-level QC, inheritance-aware scoring, ReMM × gene linkage and post-ranking BioGraph interpretation. Predictions are not clinical classifications.
 
-**Reproduction status:** The full reproducible genomic code and dataset-independent verification scripts are not yet included. Patient data and large annotation caches are intentionally excluded. The methods workbook should be added separately after a data-handling review.
+## Model 6 v1.2 — reported Top 10
 
-## Version and Top 10 provenance
+1. BUB1B
+2. ZFP57
+3. PIK3C2A
+4. PKD1
+5. ADAMTS1
+6. STK36
+7. TTN
+8. LAMA3
+9. GHRHR
+10. PEG3
 
-**Model 6 v1.2.0** remains the application model name. The saved [22 October Model 6 v1.2 CSV](results/UscBen45_Track1_Model6_v1.2_saved_2026-10-22.csv) contains the Top 10 **BUB1B, ZFP57, PIK3C2A, PKD1, ADAMTS1, STK36, TTN, LAMA3, GHRHR, PEG3** and corresponds by gene order to the installed active ranking snapshot recorded on 18 October 2026. The six-stage consolidated methods report independently describes **BUB1B, ADAMTS1, PIK3C2A, BRINP1, ARL9, TRIB1, NPRL3, FOXP1, GNRHR, ACTB** as its final table. See [the reconciliation](../../docs/MODEL6_V1_2_RECONCILIATION.md); the exact portal-uploaded final CSV bytes have not been recovered, so neither of these should be relabelled as the verified official final submission.
+This is the single saved ranking shown on the repository homepage and in the [saved Model 6 v1.2 CSV](results/UscBen45_Track1_Model6_v1.2_saved_2026-10-22.csv). The later Track 1 report (`UscBen45_Track1_variant_prioritisation (report).pdf`) includes a Results screenshot supporting the saved order, with BUB1B first and ADAMTS1 fifth. The exact competition-portal CSV is not available here for hash verification; **do not claim that this saved file is a verified copy of the portal upload**.
 
-The BUB1B candidate pair remains **phase UNRESOLVED**. Research scores and quality-control labels are separate from clinical pathogenicity classifications.
+[Results provenance and supporting records](../../docs/MODEL6_V1_2_PROVENANCE.md).
+
+**Reproduction status:** The repository contains a partial, data-free application snapshot and tests. The full genomic dataset, reference resources and an independently verified end-to-end reproduction are not included.

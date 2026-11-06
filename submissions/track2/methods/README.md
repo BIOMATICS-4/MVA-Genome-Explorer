@@ -1,5 +1,7 @@
 # Track 2 — Methods
 
-The approved Track 2 methods workbook belongs here as `UscBen45_Track2_Methods_Description.xlsx`.
+The previously linked Excel methods workbook was removed from the public repository because it was not the verified final submitted methods description.
 
-This folder describes BUB1B/BUBR1 mechanism interpretation and preliminary literature-driven drug repurposing; proposed interventions are unvalidated.
+The Track 2 investigation was mechanism-led and used preliminary literature screening to develop hypotheses concerning BUB1B/BUBR1 biology. The final methods document is not linked here pending verification and approval for public release.
+
+No patient-level data are included.

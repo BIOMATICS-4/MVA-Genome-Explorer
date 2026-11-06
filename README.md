@@ -1,6 +1,6 @@
 # MVA Genome Explorer — Hackathon submissions
 
-## Model 6 v1.2 — Saved Top 10 and ranking scores
+## Model 6 v1.2 — Report-supported Top 10 and ranking scores
 
 | Rank | Gene | Disease / phenotype context | **← Phenotype match (P)** | Disease–HPO support | Variant evidence (V) | Combined score (S) |
 |---:|---|---|---:|---:|---:|---:|
@@ -17,7 +17,7 @@
 
 ![Model 6 v1.2 Results interface](assets/model6/model6-v12-results-clarified.png)
 
-*Figure 1. Model 6 v1.2 saved evidence-led gene ranking. Phenotype-match scores (P, marked ← above) explain the ordering of these ten same-effect-class candidates; the displayed combined scores (S) are a separate metric.*
+*Figure 1. Report-supported Model 6 v1.2 gene ranking. This is the ten-gene order recorded in the saved results CSV and reflected in the later Track 1 report screenshot; exact identity with the competition-portal upload cannot be independently certified. Phenotype-match scores (P, marked ← above) help explain the ranking; the combined scores (S) are separate metrics.*
 
 ### How the scores were calculated
 
@@ -101,15 +101,17 @@ Core research Python modules, preliminary tests, track-specific overview files a
 
 For local tests, create a Python 3.12 virtual environment, install `requirements.txt`, and run `python -m pytest tests/test_core.py tests/test_inheritance.py tests/test_acmg_preview.py`. Full application startup will require further source modules and external resources.
 
-## Model 6 v1.2.0 — current application source and results provenance
+## Model 6 v1.2 — research results provenance
 
-The public `mva_explorer/` directory now includes a snapshot of the locally installed Model 6 v1.2 backend and browser interface (active ranking router, scoring/mechanism modules, evidence and inheritance helpers, compatibility/annotation/validation routes, QC and statistics). It is a **data-free source snapshot**, not a portable end-to-end deployment: gated WGS, reference indexes, saved evidence matrices, certain private analysis outputs and the separate BioGraph service are not included. The local Model 6 tests passed 43 targeted checks on 1 November 2026; an independent clean-clone end-to-end run has not been verified.
+The public `mva_explorer/` directory contains a data-free snapshot of the Model 6 v1.2 software, not a fully verified end-to-end deployment. Confidential genomic input, private intermediates and large reference datasets are not included.
 
-**Important provenance distinction:** the 18 October 2026 active application snapshot and a separately consolidated six-stage report describe different Top 10 gene orders. The saved 22 October CSV is recorded as a saved copy, **not an independently verified copy of the exact Hugging Face portal-uploaded file**. See [Model 6 v1.2 reconciliation](docs/MODEL6_V1_2_RECONCILIATION.md) and [saved candidate CSV](submissions/track1/results/UscBen45_Track1_Model6_v1.2_saved_2026-10-22.csv) before quoting a specific Top 10.
+**Top 10 provenance:** The single ranking displayed above follows the saved ten-row [Model 6 v1.2 result CSV](submissions/track1/results/UscBen45_Track1_Model6_v1.2_saved_2026-10-22.csv) and is supported by the Results screenshot (Figure 4) in the researcher's later Track 1 report, `UscBen45_Track1_variant_prioritisation (report).pdf`. The report confirms BUB1B first, ADAMTS1 fifth and the BUB1B AR candidate-pair score of **0.882026** with phase **UNRESOLVED**. The original competition-portal CSV has not been recovered for a file-hash comparison, so this is a **report-supported saved result**, not an assertion of byte-for-byte portal-upload identity.
+
+See [Model 6 v1.2 results provenance](docs/MODEL6_V1_2_PROVENANCE.md) for the supporting records and limitations.
 
 ### Track 2 literature and hypotheses
 
-- [Exact original PubMed query, searched 14 October 2026](docs/research/PUBMED_EXACT_SEARCH_2026-10-14.md).
+- [Recorded PubMed search strategy (working review notes)](docs/research/PUBMED_SEARCH_STRATEGY.md).
 - [Preliminary scoping evidence register — pending completion](docs/research/SCOPING_REVIEW_PENDING_COMPLETION.md). The most populated saved workbook has 87 first-pass evidence entries from a 193-record worklist; **not** 87 fully verified completed studies. The [12-sheet Excel workbook](https://github.com/BIOMATICS-4/MVA-Genome-Explorer/blob/main/scoping%20review/G1_Continuous_Review_193_87_Studies_Audited.xlsx) is now published in the **scoping review** folder (reconstructed from the full worksheet text export).
 - The four candidate research hypotheses in the most recent submission materials were **niacin, 4-phenylbutyrate (4-PBA), gentamicin and amlexanox**. **NMN was a mechanistic comparator only.** No patient-specific drug or rescue experiment was performed.
 

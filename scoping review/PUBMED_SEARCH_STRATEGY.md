@@ -1,6 +1,6 @@
-# PubMed search strategy — original exact query
+# PubMed search strategy — saved working query
 
-**Search date:** 14 October 2026  
+**Review period:** 2026 hackathon research. A specific search date is not attributed to the submitted methods report.  
 **Database:** PubMed only  
 **Scope:** Candidate-centred preliminary scoping review of niacin (nicotinic acid), nicotinamide mononucleotide (NMN), and 4-phenylbutyrate (4-PBA) in genetically defined disorders.
 
@@ -20,4 +20,4 @@
 
 These figures describe an **incomplete, single-reviewer, AI-assisted preliminary evidence map**, not a finished systematic review or fully completed scoping review. Screening decisions and the full-text evidence need independent checking. This query was designed for *indirect* genetic-disorder evidence; it does not demonstrate BUB1B/MVA therapeutic rescue. Additional candidates gentamicin and amlexanox were considered separately and are **not** included in this exact PubMed search.
 
-Source: saved `PubMed_472_Preliminary_Scoping_Review.md` and `MVA_PubMed_Preliminary_Review_10_September_2026.docx` (screening updated 14–15 October 2026).
+Source: preliminary PubMed search and screening working documents. The query is preserved as recorded; these working notes are not proof that this exact strategy or calendar date was stated in the final Track 2 submission.

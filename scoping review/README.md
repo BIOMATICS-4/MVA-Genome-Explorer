@@ -14,7 +14,7 @@ The **87 studies are first-pass evidence entries**, not 87 independently verifie
 
 ## Additional research material
 
-- [Exact PubMed search string, 14 October 2026](PUBMED_EXACT_SEARCH_2026-10-14.md).
+- [Recorded PubMed search strategy — working notes](PUBMED_SEARCH_STRATEGY.md).
 - [Detailed review status and remaining work](SCOPING_REVIEW_PENDING_COMPLETION.md).
 - [Searchable text export of the evidence register](G1_CONTINUOUS_REVIEW_87_STUDIES_TEXT_MIRROR_PENDING.txt).
 

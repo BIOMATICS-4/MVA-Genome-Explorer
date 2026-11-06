@@ -14,7 +14,7 @@
 
 **Reproduction status:** Structural workflow files, complete reproducible source and the methods workbook still need independent file-level audit and upload. No patient data are included.
 
-## Final nominated research hypotheses (Model 6 v1.2)
+## Final nominated research hypotheses
 
 The four selected candidates in the final Track 2 presentation were:
 
@@ -27,6 +27,9 @@ The four selected candidates in the final Track 2 presentation were:
 
 **NMN was included only as a mechanistic comparator**, not an additional nominated candidate. These are literature- and mechanism-driven research hypotheses, not established therapies or validated efficacy for the proband.
 
-### Original scoping-review source
+### Scoping-review working records
 
-The [exact PubMed query](../../docs/research/PUBMED_EXACT_SEARCH_2026-10-14.md) covers **niacin, NMN and 4-PBA only**; it was not a search covering gentamicin or amlexanox. The [87-entry cumulative evidence register](../../docs/research/SCOPING_REVIEW_PENDING_COMPLETION.md) is a preliminary review pending completion and full-text verification. The [12-sheet Excel literature register](https://github.com/BIOMATICS-4/MVA-Genome-Explorer/blob/main/scoping%20review/G1_Continuous_Review_193_87_Studies_Audited.xlsx) is now available in the public **scoping review** directory as a reconstructed Excel-format copy of the complete text-extracted worksheets.
+The [recorded PubMed search strategy](../../docs/research/PUBMED_SEARCH_STRATEGY.md) covers **niacin, NMN and 4-PBA only**; it was not a search covering gentamicin or amlexanox. The [87-entry cumulative evidence register](../../docs/research/SCOPING_REVIEW_PENDING_COMPLETION.md) is a preliminary review pending completion and full-text verification. The [12-sheet Excel literature register](https://github.com/BIOMATICS-4/MVA-Genome-Explorer/blob/main/scoping%20review/G1_Continuous_Review_193_87_Studies_Audited.xlsx) is now available in the public **scoping review** directory as a reconstructed Excel-format copy of the complete text-extracted worksheets.
+
+
+**Date and submission distinction:** The publicly documented search strategy comes from saved working records. The detailed Track 2 methods text does not specify a calendar search date, so no exact literature-search date is attributed to the submitted Track 2 methods here.

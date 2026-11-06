@@ -1,7 +1,7 @@
 # Scoping literature evidence map — pending completion
 
 **Status: IN PROGRESS / NOT A FINAL SYSTEMATIC OR SCOPING REVIEW**  
-**Last documented evidence-register update:** 15 October 2026
+**Documented period:** research conducted during the 2026 hackathon; this is a working evidence register, not a completed or submitted-date-certified scoping review
 
 ## Source workbook
 
@@ -22,7 +22,7 @@
 4. Reconcile positive, neutral and negative findings; label uncertain information rather than inventing missing values.
 5. Independently verify screening/extraction, complete final flow/counts, and explicitly report limitations.
 
-No study in the register is direct evidence that any candidate restores BUBR1 activity in this individual's cells. The exact PubMed search is in [PUBMED_EXACT_SEARCH_2026-10-14.md](PUBMED_EXACT_SEARCH_2026-10-14.md). The workbook is now available in the public [Research into scoping review](../../Research%20into%20scoping%20review/) directory as an Excel-format reconstruction from the complete 12-tab text export. The source study entries and worksheets are included, while original file formatting and non-text features may differ.
+No study in the register is direct evidence that any candidate restores BUBR1 activity in this individual's cells. The recorded PubMed search strategy is in [PUBMED_SEARCH_STRATEGY.md](PUBMED_SEARCH_STRATEGY.md). The workbook is now available in the public [scoping review](../../scoping%20review/) directory as an Excel-format reconstruction from the complete 12-tab text export. The source study entries and worksheets are included, while original file formatting and non-text features may differ.
 
 ## Public searchable text mirror
 

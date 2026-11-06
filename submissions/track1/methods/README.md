@@ -1,5 +1,7 @@
 # Track 1 — Methods
 
-The approved Track 1 methods workbook belongs here as `UscBen45_Track1_Methods_Description.xlsx`.
+The previously linked Excel methods workbook was removed from the public repository because it was not the verified final submitted methods description.
 
-This folder describes the final genomic variant prioritisation and auditing workflow. Do not confuse demonstration fixtures with patient-derived submissions.
+The researcher's later detailed Track 1 report provides the relevant Model 6 v1.2 method description. No replacement is linked here until its publication is approved and its match to the submission can be established.
+
+See [Track 1 results provenance](../../../docs/MODEL6_V1_2_PROVENANCE.md).
