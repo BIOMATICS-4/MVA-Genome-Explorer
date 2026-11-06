@@ -1,5 +1,13 @@
 # MVA Genome Explorer — Hackathon submissions
 
+## Future Prospects — GENE-KNOW-DRUG (GKG)
+
+**The hackathon inspired a new direction: Drug Cascader.** I am developing an interactive pharmacology tool that currently explores drug-associated molecular relationships and aims to predict a drug's journey after administration — including tissue exposure, persistence, and the likelihood of beneficial or harmful effects.
+
+Drug Cascader is planned to integrate with **MVA Genome Explorer** and **BioGraph** as **GENE-KNOW-DRUG (GKG)**, a research-driven initiative that reaches beyond MVA to explore rare genetic diseases and potential therapeutic strategies.
+
+**[Explore Future Prospects — Drug Cascader and GKG →](future-prospects/)**
+
 ## Model 6 v1.2 — Saved Top 10 and ranking scores
 
 | Rank | Gene | Disease / phenotype context | **← Phenotype match (P)** | Disease–HPO support | Variant evidence (V) | Combined score (S) |
