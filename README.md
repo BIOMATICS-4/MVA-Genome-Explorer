@@ -54,6 +54,8 @@ For **BUB1B**, P = **0.7657** and V ≈ **0.799321** yield **S = 0.882026** for 
 
 [![BUB1B disease network](assets/biograph/bub1b-semantic-disease-network.png)](assets/biograph/README.md)
 
+*Figure 2. BioGraph semantic network showing BUB1B and database-linked gene–disease and Disease Ontology relationships, including MVA1 and MVA2 disease terms. These connections do not imply that BUB1B causes all MVA subtypes: BUB1B is associated with MVA1, while MVA2 is associated with CEP57.*
+
 [**See all three BioGraph screenshots (Classic pathways, Semantic diseases, and BUB3 GO terms) →**](assets/biograph/README.md)
 
 <br>
