@@ -51,14 +51,6 @@ For **BUB1B**, P = **0.7657** and V ≈ **0.799321** yield **S = 0.882026** for 
 [**See all three BioGraph screenshots (Classic pathways, Semantic diseases, and BUB3 GO terms) →**](assets/biograph/README.md)
 
 
-## Reproducibility and data sharing
-
-[Installation status](INSTALLATION.md) · [Data availability and restrictions](DATA_AVAILABILITY.md)
-
-The repository currently contains a partial software release, not a validated one-command installation. No open-source license is granted. Do not distribute patient-level genomic files without appropriate authorization.
-
----
-
 ## [Future Prospects — GENE-KNOW-DRUG (GKG)](future-prospects/)
 
 Inspired by the **Hackathon**, I have decided to develop **Drug Cascader**, an interactive pharmacology tool designed to explore and eventually predict what happens to a drug after administration, from its absorption and distribution throughout the body to its interactions with molecular targets, biological pathways, tissues and organs.
@@ -76,6 +68,16 @@ Drug Cascader will be integrated with **MVA Genome Explorer** and **BioGraph** t
 <!-- Screenshot will be added when the prototype image is available. -->
 
 *Current development-stage interface of Drug Cascader.*
+
+---
+
+## Reproducibility and data sharing
+
+[Installation status](INSTALLATION.md) · [Data availability and restrictions](DATA_AVAILABILITY.md)
+
+The repository currently contains a partial software release, not a validated one-command installation. No open-source license is granted. Do not distribute patient-level genomic files without appropriate authorization.
+
+---
 
 ---
 
