@@ -1,6 +1,8 @@
 # MVA Genome Explorer — Hackathon submissions
 
-## Model 6 v1.2 — Report-supported Top 10 and ranking scores
+<br>
+
+## Model 6 v1.2 — Top 10 and ranking scores
 
 | Rank | Gene | Disease / phenotype context | **← Phenotype match (P)** | Disease–HPO support | Variant evidence (V) | Combined score (S) |
 |---:|---|---|---:|---:|---:|---:|
@@ -17,7 +19,7 @@
 
 ![Model 6 v1.2 Results interface](assets/model6/model6-v12-results-clarified.png)
 
-*Figure 1. Report-supported Model 6 v1.2 gene ranking. This is the ten-gene order recorded in the saved results CSV and reflected in the later Track 1 report screenshot; exact identity with the competition-portal upload cannot be independently certified. Phenotype-match scores (P, marked ← above) help explain the ranking; the combined scores (S) are separate metrics.*
+*Figure 1. Model 6 v1.2 candidate-gene ranking. Phenotype-match scores (P, marked ← above) help explain the ordering; combined scores (S) are shown separately.*
 
 ### How the scores were calculated
 
@@ -37,6 +39,8 @@ For **BUB1B**, P = **0.7657** and V ≈ **0.799321** yield **S = 0.882026** for 
 
 *The disease-context column lists a stored hypothesis, not confirmed diagnosis. Missing disease–HPO support is shown as — rather than zero. These scores are research prioritisation values, not calibrated pathogenicity probabilities.*
 
+<br>
+
 ## Explore the submissions
 
 | Track | Methods | Results |
@@ -44,12 +48,15 @@ For **BUB1B**, P = **0.7657** and V ≈ **0.799321** yield **S = 0.882026** for 
 | **Track 1 — Variant prioritisation** | — | — |
 | **Track 2 — Mechanism-informed drug repurposing** | — | — |
 
+<br>
+
 ## BioGraph — visual exploration
 
 [![BUB1B disease network](assets/biograph/bub1b-semantic-disease-network.png)](assets/biograph/README.md)
 
 [**See all three BioGraph screenshots (Classic pathways, Semantic diseases, and BUB3 GO terms) →**](assets/biograph/README.md)
 
+<br>
 
 ## [Future Prospects — GENE-KNOW-DRUG (GKG)](future-prospects/)
 
@@ -71,6 +78,8 @@ Drug Cascader will be integrated with **MVA Genome Explorer** and **BioGraph** t
 
 ---
 
+<br>
+
 ## Reproducibility and data sharing
 
 [Installation status](INSTALLATION.md) · [Data availability and restrictions](DATA_AVAILABILITY.md)
@@ -79,25 +88,30 @@ The repository currently contains a partial software release, not a validated on
 
 ---
 
----
-
-
 Research software and methods supporting two complementary submissions:
 
 - **Track 1: Variant prioritisation** — genomic annotation, technical QC, inheritance-aware candidate assessment, transparent ranking and ACMG/AMP evidence review.
 - **Track 2: Mechanism-informed drug repurposing** — analysis of BUB1B/BUBR1 variants, network-based biological interpretation and literature-derived pharmacological hypotheses.
 
+<br>
+
 ## Interpretation and limitations
 
 The BUB1B p.Leu737Ter variant is a predicted loss-of-function allele; p.Asn1002Lys is a missense VUS. The two heterozygous variants have unresolved phase. Proposed interventions, including premature-stop readthrough, NAD+-pathway support and 4-PBA, remain hypotheses: rescue efficacy and safety have not been experimentally established. BioGraph is a separate post-ranking interpretation service and does not modify prioritisation scores. The ACMG/AMP-style evidence map highlights criteria requiring expert review and is not a clinical classifier.
+
+<br>
 
 ## Reproducibility and data safety
 
 Only task-relevant, reviewed code, methods, configuration and tests should be committed. Patient VCF files, identifiable data, giant reference datasets, caches, virtual environments, backup versions and incidental local results are intentionally excluded. Reference resources and authorised example input datasets will be needed to reproduce full-genome runs. No genomic dataset is included in this initial repository documentation.
 
+<br>
+
 ## AI assistance
 
 Parts of software development and writing involved AI assistance. See each track's methods disclosure for provider, plan/tier and applicable data-handling settings.
+
+<br>
 
 ## Source-code release status
 
@@ -105,15 +119,9 @@ Core research Python modules, preliminary tests, track-specific overview files a
 
 For local tests, create a Python 3.12 virtual environment, install `requirements.txt`, and run `python -m pytest tests/test_core.py tests/test_inheritance.py tests/test_acmg_preview.py`. Full application startup will require further source modules and external resources.
 
-## Model 6 v1.2 — research results provenance
+<br>
 
-The public `mva_explorer/` directory contains a data-free snapshot of the Model 6 v1.2 software, not a fully verified end-to-end deployment. Confidential genomic input, private intermediates and large reference datasets are not included.
-
-**Top 10 provenance:** The single ranking displayed above follows the saved ten-row [Model 6 v1.2 result CSV](submissions/track1/results/UscBen45_Track1_Model6_v1.2_saved_2026-10-22.csv) and is supported by the Results screenshot (Figure 4) in the researcher's later Track 1 report, `UscBen45_Track1_variant_prioritisation (report).pdf`. The report confirms BUB1B first, ADAMTS1 fifth and the BUB1B AR candidate-pair score of **0.882026** with phase **UNRESOLVED**. The original competition-portal CSV has not been recovered for a file-hash comparison, so this is a **report-supported saved result**, not an assertion of byte-for-byte portal-upload identity.
-
-See [Model 6 v1.2 results provenance](docs/MODEL6_V1_2_PROVENANCE.md) for the supporting records and limitations.
-
-### Track 2 literature and hypotheses
+## Track 2 literature and hypotheses
 
 - [Recorded PubMed search strategy (working review notes)](docs/research/PUBMED_SEARCH_STRATEGY.md).
 - [Preliminary scoping evidence register — pending completion](docs/research/SCOPING_REVIEW_PENDING_COMPLETION.md). The most populated saved workbook has 87 first-pass evidence entries from a 193-record worklist; **not** 87 fully verified completed studies. The [12-sheet Excel workbook](https://github.com/BIOMATICS-4/MVA-Genome-Explorer/blob/main/scoping%20review/G1_Continuous_Review_193_87_Studies_Audited.xlsx) is now published in the **scoping review** folder (reconstructed from the full worksheet text export).
