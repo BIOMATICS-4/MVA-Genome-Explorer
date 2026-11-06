@@ -41,8 +41,8 @@ For **BUB1B**, P = **0.7657** and V ≈ **0.799321** yield **S = 0.882026** for 
 
 | Track | Methods | Results |
 |---|---|---|
-| **Track 1 — Variant prioritisation** | [Methods workbook](submissions/track1/methods/UscBen45_Track1_Methods_Description.xlsx) | [Results and availability](submissions/track1/results/) |
-| **Track 2 — Mechanism-informed drug repurposing** | [Methods workbook](submissions/track2/methods/UscBen45_Track2_Methods_Description.xlsx) | [Results and availability](submissions/track2/results/) |
+| **Track 1 — Variant prioritisation** | — | — |
+| **Track 2 — Mechanism-informed drug repurposing** | — | — |
 
 ## BioGraph — visual exploration
 
@@ -56,6 +56,24 @@ For **BUB1B**, P = **0.7657** and V ≈ **0.799321** yield **S = 0.882026** for 
 [Installation status](INSTALLATION.md) · [Data availability and restrictions](DATA_AVAILABILITY.md)
 
 The repository currently contains a partial software release, not a validated one-command installation. No open-source license is granted. Do not distribute patient-level genomic files without appropriate authorization.
+
+## [Future Prospects — GENE-KNOW-DRUG (GKG)](future-prospects/)
+
+Inspired by the **Hackathon**, I have decided to develop **Drug Cascader**, an interactive pharmacology tool designed to explore and eventually predict what happens to a drug after administration, from its absorption and distribution throughout the body to its interactions with molecular targets, biological pathways, tissues and organs.
+
+The current prototype allows users to interactively explore drug-associated molecular relationships and their connections to broader biological systems. Future development aims to simulate a drug's journey through the body, predicting **which tissues and organs it may reach, how much of the drug may accumulate there, how long it may persist, and the likelihood of beneficial or harmful effects**.
+
+The goal is to move beyond identifying where a drug acts, towards estimating **tissue-specific drug concentrations, exposure trajectories, downstream molecular responses and the probability of different biological outcomes over time**. These predictions will be informed by pharmacokinetic models, molecular interactions, tissue-expression data and established biological evidence, with uncertainty explicitly represented.
+
+Drug Cascader will be integrated with **MVA Genome Explorer** and **BioGraph** to form **GENE-KNOW-DRUG (GKG)**, a broader research software initiative extending beyond MVA, with the ambition of investigating rare genetic diseases and exploring potential therapeutic strategies.
+
+**GKG remains a research-driven ambition, with Drug Cascader currently under development.**
+
+### Drug Cascader — Current Prototype
+
+<!-- Screenshot will be added when the prototype image is available. -->
+
+*Current development-stage interface of Drug Cascader.*
 
 ---
 
@@ -98,11 +116,3 @@ The public `mva_explorer/` directory now includes a snapshot of the locally inst
 **Browse the preliminary extracted paper records on GitHub:** [87-study workbook text mirror — pending completion](docs/research/G1_CONTINUOUS_REVIEW_87_STUDIES_TEXT_MIRROR_PENDING.txt). The text mirror is a searchable companion to the [Excel workbook](https://github.com/BIOMATICS-4/MVA-Genome-Explorer/blob/main/scoping%20review/G1_Continuous_Review_193_87_Studies_Audited.xlsx); it does not preserve spreadsheet styling.
 
 ---
-
-## Future Prospects — GENE-KNOW-DRUG (GKG)
-
-**The hackathon inspired a new direction: Drug Cascader.** I am developing an interactive pharmacology tool that currently explores drug-associated molecular relationships and aims to predict a drug's journey after administration — including tissue exposure, persistence, and the likelihood of beneficial or harmful effects.
-
-Drug Cascader is planned to integrate with **MVA Genome Explorer** and **BioGraph** as **GENE-KNOW-DRUG (GKG)**, a research-driven initiative that reaches beyond MVA to explore rare genetic diseases and potential therapeutic strategies.
-
-**[Explore Future Prospects — Drug Cascader and GKG →](future-prospects/)**
