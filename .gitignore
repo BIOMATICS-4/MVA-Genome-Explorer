@@ -1,0 +1,41 @@
+# Patient-specific data and sensitive artefacts
+/data/
+/resources/
+/outputs/
+/snapshots/
+*.vcf
+*.vcf.gz
+*.bcf
+*.bam
+*.cram
+*.fastq
+*.fastq.gz
+*.fasta
+*.fa
+*.fai
+*.tbi
+*.csi
+*.pdb
+*.cif
+*.pka
+*.sqlite
+*.sqlite3
+*.db
+*.zip
+*.tar.gz
+# Credentials and environments
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+.venv/
+venv/
+__pycache__/
+.pytest_cache/
+.runtime_logs/
+.tools/
+*.log
+# Backups
+*.before_*
+*backup*/
