@@ -1,0 +1,39 @@
+Creative Commons Attribution 4.0 International (CC BY 4.0)
+SPDX-License-Identifier: CC-BY-4.0
+
+Copyright (c) 2026 BIOMATICS-4 (MVA Genome Explorer).
+
+Unless otherwise explicitly indicated, the original material published by
+BIOMATICS-4 in this repository—including original research code, methods,
+reports, documentation, figures, and non-sensitive research outputs—is licensed
+under the Creative Commons Attribution 4.0 International Public License
+(CC BY 4.0).
+
+The complete, legally binding license is available at:
+https://creativecommons.org/licenses/by/4.0/legalcode
+
+A plain-language description is available at:
+https://creativecommons.org/licenses/by/4.0/
+
+You may share and adapt the licensed material, including commercially, provided
+you give appropriate credit, link to the license, and indicate if changes were
+made. Suggested attribution:
+
+"BIOMATICS-4, MVA Genome Explorer (2026),
+https://github.com/BIOMATICS-4/MVA-Genome-Explorer,
+licensed under CC BY 4.0."
+
+SCOPE AND DATA SAFEGUARDS
+
+This grant covers only material for which the contributor has the legal right
+to grant a license. It does not grant rights to third-party software, images,
+publications, databases, model weights, or other externally sourced material,
+which remain governed by their respective licenses and terms.
+
+Controlled-access patient genomic and clinical data are not included in this
+license and are not authorized for public redistribution. Access to, use of, and
+deletion of hackathon data remain subject to the official Hackathon Rules and
+Data Access and Use Terms.
+
+Nothing in this notice overrides privacy, consent, attribution, third-party
+intellectual-property, or hackathon data-governance obligations.
