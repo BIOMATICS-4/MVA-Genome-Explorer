@@ -106,7 +106,7 @@ Drug Cascader will be integrated with **MVA Genome Explorer** and **BioGraph** t
 
 [Installation status](INSTALLATION.md) · [Data availability and restrictions](DATA_AVAILABILITY.md)
 
-The repository currently contains a partial software release, not a validated one-command installation. No open-source license is granted. Do not distribute patient-level genomic files without appropriate authorization.
+The repository currently contains a partial software release, not a validated one-command installation. Original repository material is released under **[CC BY 4.0](LICENSE)** in accordance with the hackathon submission terms. Controlled-access patient genomic and clinical data are **not** covered by this licence and must not be redistributed.
 
 ---
 
@@ -142,3 +142,11 @@ Core research Python modules, preliminary tests, track-specific overview files a
 For local tests, create a Python 3.12 virtual environment, install `requirements.txt`, and run `python -m pytest tests/test_core.py tests/test_inheritance.py tests/test_acmg_preview.py`. Full application startup will require further source modules and external resources.
 
 <br>
+
+---
+
+## License
+
+Original research code, methods, reports, documentation, figures, and non-sensitive results in this repository are licensed under **[Creative Commons Attribution 4.0 International (CC BY 4.0)](LICENSE)**, unless otherwise specified. When reusing original material, credit **BIOMATICS-4 — MVA Genome Explorer**, link to this repository and the licence, and indicate changes.
+
+This grant excludes controlled-access patient genomic or clinical data and third-party material subject to separate terms. See [LICENSE](LICENSE) and [data availability and restrictions](DATA_AVAILABILITY.md).
